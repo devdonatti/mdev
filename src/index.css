@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.glow {
+  transition: all 0.3s ease-in-out;
+}
+
+.glow:hover {
+  box-shadow: 0 0 25px rgb(206, 71, 193);
+}
+
+.img_glow {
+  box-shadow: 0 0 55px rgb(206, 71, 193);
+}
+
+.neno-button {
+  transition: all 0.3s ease-in-out;
+}
+.neno-button:hover {
+  box-shadow: 0 0 15px rgb(206, 71, 193);
+}
+.b_glow {
+  box-shadow: 0 0 15px rgb(206, 71, 193);
+}
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.bg-gradient-animation {
+  background: linear-gradient(
+    270deg,
+    rgba(29, 78, 216, 1),
+    rgba(167, 99, 216, 1),
+    rgba(29, 78, 216, 1)
+  );
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+}
