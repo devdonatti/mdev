@@ -10,7 +10,7 @@ const servicios = [
       "1 seccion con scroll",
       "Formulario de contacto y botón WhatsApp",
       "Adaptada a dispositivos móviles",
-      "Incluye dominio + mantenimiento gratis 1 mes",
+      "Incluye dominio por un año + mantenimiento gratis 1 mes",
     ],
     precio: "$200.000",
   },
@@ -22,7 +22,7 @@ const servicios = [
       "Diseño personalizado",
       "Catálogo autogestionable, carrito,logueo botón a WhatsApp y pasarela de pago",
       "Adaptada a dispositivos móviles",
-      "Incluye dominio + mantenimiento gratis 1 mes",
+      "Incluye dominio por un año + mantenimiento gratis 1 mes",
     ],
     precio: "$300.000",
   },
@@ -34,7 +34,7 @@ const servicios = [
       "Hasta 5 secciones (Inicio, Nosotros, Servicios, Contacto, etc.)",
       "Formulario de contacto",
       "Diseño adaptable a celulares",
-      "Incluye dominio + mantenimiento gratis 1 mes",
+      "Incluye dominio por un año + mantenimiento gratis 1 mes",
     ],
     precio: "$250.000",
   },
@@ -46,6 +46,7 @@ const servicios = [
       "Análisis personalizado",
       "Funcionalidades específicas",
       "Diseño único según tus objetivos",
+      "Incluye dominio por un año + mantenimiento gratis 1 mes",
     ],
     precio: "Desde $350.000",
   },
@@ -89,7 +90,7 @@ const Servicios = () => {
       >
         Servicios
       </h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 text-center gap-8">
         {servicios.map((servicio, index) => (
           <div
             key={index}
@@ -99,7 +100,7 @@ const Servicios = () => {
               {servicio.titulo}
             </h3>
             <p className="text-gray-300 mb-4">{servicio.descripcion}</p>
-            <ul className="list-disc pl-5 text-sm text-gray-400 mb-4">
+            <ul className="list-disc pl-5 text-sm text-start text-gray-400 mb-4">
               {servicio.incluye.map((item, i) => (
                 <li key={i}>{item}</li>
               ))}

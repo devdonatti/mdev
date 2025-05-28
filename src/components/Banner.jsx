@@ -52,7 +52,7 @@ const Banner = () => {
 
           <div className="flex mt-8 gap-4 justify-center lg:justify-start ">
             <a
-              href="https://wa.me/1164609581?text=Hola%2C%20quiero%20más%20información%20sobre%20sus%20servicios"
+              href="https://wa.me/1170618004?text=Hola%2C%20quiero%20más%20información%20sobre%20sus%20servicios"
               target="_blank"
               rel="noopener noreferrer"
               className="bg-black hover:text-fuchsia-500 glow p-4 rounded lg:text-5xl text-white font-raleway"

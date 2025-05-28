@@ -39,7 +39,7 @@ const Footer = () => {
           </p>
           <p className="text-sm flex justify-center md:justify-start items-center my-2 font-raleway">
             <FaPhone className="m-1" />
-            17061-8004
+            117061-8004
           </p>
         </div>
 
