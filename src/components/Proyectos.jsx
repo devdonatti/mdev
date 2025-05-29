@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Comentarios from "../components/Comentarios";
+import Comentarios from "./Comentarios";
 
 const Proyectos = () => {
   return (
@@ -65,14 +65,14 @@ const Proyectos = () => {
           {
             nombre: "App Pedidos al Whatsapp",
             imgSrc: "/vistapedidos.png",
-            infoLink: "/info",
+            infoLink: "/info/pedidos-whatsapp",
             demoLink: "https://pedidoswp.netlify.app/",
             precio: "$180.000",
           },
           {
             nombre: "App Tienda Online",
             imgSrc: "/vistasmile.png",
-            infoLink: "/info",
+            infoLink: "/info/tienda-online",
             demoLink: "https://tiendasmile.vercel.app/",
             precio: "$300.000",
           },

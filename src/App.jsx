@@ -7,10 +7,11 @@ import SobreMi from "./components/SobreMi";
 import Proyectos from "./components/Proyectos";
 import Contacto from "./components/Contacto";
 import Footer from "./components/Footer";
-import Detalles from "./components/Detalles";
-import Servicios from "./components/Servicios";
 
-import Info from "./components/Info";
+import Servicios from "./components/Servicios";
+import InfoProducto from "./components/InfoProducto";
+
+//import Info from "./components/Info";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
@@ -20,6 +21,8 @@ function App() {
         <Navbar />
 
         <Routes>
+          <Route path="/info/:id" element={<InfoProducto />} />
+
           <Route
             path="/"
             element={
@@ -39,28 +42,6 @@ function App() {
                   <Contacto />
                 </div>
               </>
-            }
-          />
-          <Route
-            path="/detalles/:id"
-            element={
-              <div
-                className="min-h-screen bg-cover bg-center bg-no-repeat"
-                style={{ backgroundImage: "url('/fondoo.png')" }}
-              >
-                <Detalles />
-              </div>
-            }
-          />
-          <Route
-            path="/info"
-            element={
-              <div
-                className="min-h-screen bg-cover bg-center bg-no-repeat"
-                style={{ backgroundImage: "url('/fondoo.png')" }}
-              >
-                <Info />
-              </div>
             }
           />
         </Routes>
