@@ -27,7 +27,7 @@ const Proyectos = () => {
             title: "Gestoría Cisneros",
             imgSrc: "/vistagestoria.png",
             detailsLink: "/detalles/6",
-            demoLink: "https://gestoriacisneros.netlify.app/",
+            demoLink: "https://gestoriacisneros.com",
           },
         ].map((proyecto, index) => (
           <div key={index} className="flex flex-col items-center">
@@ -67,14 +67,14 @@ const Proyectos = () => {
             imgSrc: "/vistapedidos.png",
             infoLink: "/info/pedidos-whatsapp",
             demoLink: "https://pedidoswp.netlify.app/",
-            precio: "$180.000",
+            precio: "$200.000",
           },
           {
             nombre: "App Tienda Online",
             imgSrc: "/vistasmile.png",
             infoLink: "/info/tienda-online",
             demoLink: "https://tiendasmile.vercel.app/",
-            precio: "$300.000",
+            precio: "$550.000",
           },
         ].map((modelo, index) => (
           <div
