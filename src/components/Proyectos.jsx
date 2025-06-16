@@ -24,6 +24,12 @@ const Proyectos = () => {
             demoLink: "https://tiendasmile.vercel.app/",
           },
           {
+            title: "Epex e Hijos",
+            imgSrc: "/vista-epex.png",
+            detailsLink: "/detalles/1",
+            demoLink: "https://epexehijos.netlify.app/",
+          },
+          {
             title: "Gestoría Cisneros",
             imgSrc: "/vistagestoria.png",
             detailsLink: "/detalles/6",

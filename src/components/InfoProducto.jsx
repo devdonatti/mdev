@@ -27,7 +27,7 @@ const productos = {
       "Integración con pasarelas de pago",
       "Diseño profesional y responsive",
       "Panel de administración",
-      "Visualizacion de pedidos",
+      "Visualización de pedidos",
     ],
     demoLink: "https://tiendasmile.vercel.app/",
     imgSrc: "/vistasmile.png",
