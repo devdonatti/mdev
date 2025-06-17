@@ -97,21 +97,20 @@ const Comentarios = () => {
         {comentarios.map((c, i) => (
           <div
             key={i}
-            className="border border-fuchsia-600 rounded-2xl p-6 flex items-start gap-6 bg-slate-800 w-full min-h-[150px] shadow-lg"
+            className="border border-fuchsia-600 rounded-xl p-4 flex items-start gap-4 bg-slate-800 w-full max-w-3xl mx-auto shadow-lg"
           >
             {c.photoURL && (
               <img
                 src={c.photoURL}
                 alt={c.autor}
-                className="w-16 h-16 rounded-full object-cover"
+                className="w-14 h-14 rounded-full object-cover"
               />
             )}
-            <div className="flex flex-col justify-start">
-              <div className="flex items-start gap-2 flex-wrap">
-                <p className="font-semibold text-fuchsia-400 whitespace-nowrap">
-                  {c.autor}:
-                </p>
-                <p className="text-white">{c.texto}</p>
+            <div className="flex flex-col overflow-hidden w-full">
+              <p className="font-semibold text-fuchsia-400 mb-1">{c.autor}</p>
+              <div className="text-white text-sm max-h-24 overflow-y-auto pr-2 break-words custom-scroll">
+                {c.texto}
+                {c.texto}
               </div>
             </div>
           </div>
