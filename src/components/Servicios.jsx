@@ -12,7 +12,7 @@ const servicios = [
       "Adaptada a dispositivos móviles",
       "Incluye dominio por un año + mantenimiento gratis 1 mes",
     ],
-    precio: "$200.000",
+    precio: "$300.000",
   },
   {
     titulo: "Tienda Online",
@@ -24,7 +24,7 @@ const servicios = [
       "Adaptada a dispositivos móviles",
       "Incluye dominio por un año + mantenimiento gratis 1 mes",
     ],
-    precio: "$300.000",
+    precio: "$750.000",
   },
   {
     titulo: "Página Institucional",
@@ -36,7 +36,7 @@ const servicios = [
       "Diseño adaptable a celulares",
       "Incluye dominio por un año + mantenimiento gratis 1 mes",
     ],
-    precio: "$250.000",
+    precio: "$400.000",
   },
   {
     titulo: "Web Personalizada",
@@ -70,7 +70,7 @@ const servicios = [
       "Diseño de piezas gráficas",
       "Administración de campañas en Meta Ads",
     ],
-    precio: "$200.000 /mes",
+    precio: "$260.000 /mes",
   },
 ];
 
