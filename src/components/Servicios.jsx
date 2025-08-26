@@ -36,7 +36,7 @@ const servicios = [
       "Diseño adaptable a celulares",
       "Incluye dominio por un año + mantenimiento gratis 1 mes",
     ],
-    precio: "$400.000",
+    precio: "$320.000",
   },
   {
     titulo: "Web Personalizada",
