@@ -7,12 +7,12 @@ const servicios = [
       "Ideal para promociones o lanzamientos. Rápida, atractiva y enfocada en la conversión.",
     incluye: [
       "Diseño personalizado",
-      "1 seccion con scroll",
+      "1 sección con scroll",
       "Formulario de contacto y botón WhatsApp",
       "Adaptada a dispositivos móviles",
       "Incluye dominio por un año + mantenimiento gratis 1 mes",
     ],
-    precio: "$300.000",
+    precio: 400000,
   },
   {
     titulo: "Tienda Online",
@@ -20,11 +20,11 @@ const servicios = [
       "Venta de productos con pasarela de pagos integrada. Todo listo para vender online.",
     incluye: [
       "Diseño personalizado",
-      "Catálogo autogestionable, carrito,logueo botón a WhatsApp y pasarela de pago",
+      "Catálogo autogestionable, carrito, logueo, botón a WhatsApp y pasarela de pago",
       "Adaptada a dispositivos móviles",
       "Incluye dominio por un año + mantenimiento gratis 1 mes",
     ],
-    precio: "$750.000",
+    precio: 900000,
   },
   {
     titulo: "Página Institucional",
@@ -36,7 +36,7 @@ const servicios = [
       "Diseño adaptable a celulares",
       "Incluye dominio por un año + mantenimiento gratis 1 mes",
     ],
-    precio: "$320.000",
+    precio: 450000,
   },
   {
     titulo: "Web Personalizada",
@@ -48,36 +48,13 @@ const servicios = [
       "Diseño único según tus objetivos",
       "Incluye dominio por un año + mantenimiento gratis 1 mes",
     ],
-    precio: "Desde $350.000",
-  },
-  {
-    titulo: "Creación de Contenido",
-    descripcion:
-      "Diseño gráfico y textos para tus redes, sitio o blog. Todo lo que tu marca necesita para brillar.",
-    incluye: [
-      "Diseño de posts e historias",
-      "Reediseño de redes sociales",
-      "Contenido entregable por drive",
-    ],
-    precio: "Desde $20.000 por pack",
-  },
-  {
-    titulo: "Manejo de Redes + Publicidad",
-    descripcion:
-      "Gestión profesional de tus redes sociales + campañas publicitarias efectivas.",
-    incluye: [
-      "Calendario de contenido mensual",
-      "Diseño de piezas gráficas",
-      "Administración de campañas en Meta Ads",
-    ],
-    precio: "$260.000 /mes",
+    precio: 600000,
   },
 ];
 
 const Servicios = () => {
-  const enviarWhatsapp = (titulo) => {
-    const numero = "1170618004"; // número de WhatsApp de tu marca
-    const mensaje = `Hola, estoy interesado/a en el servicio de ${titulo}. ¿Me podés contar más?`;
+  const abrirWhatsapp = (mensaje) => {
+    const numero = "5491170618004"; // número de WhatsApp de tu marca (AR)
     const url = `https://wa.me/54${numero}?text=${encodeURIComponent(mensaje)}`;
     window.open(url, "_blank");
   };
@@ -86,36 +63,70 @@ const Servicios = () => {
     <div className="py-20 px-6 md:px-16 bg-opacity-60 text-white">
       <h1
         data-aos="fade-right"
-        className="text-6xl font-raleway text-center mb-8 p-4 leading-normal text-white"
+        className="text-6xl font-raleway text-center mb-12 p-4 leading-normal text-white"
       >
         Servicios
       </h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 text-center gap-8">
-        {servicios.map((servicio, index) => (
-          <div
-            key={index}
-            className="bg-slate-800 rounded-2xl p-6 shadow-lg hover:shadow-fuchsia-500/30 transition duration-300"
-          >
-            <h3 className="text-2xl font-semibold mb-2 text-fuchsia-400">
-              {servicio.titulo}
-            </h3>
-            <p className="text-gray-300 mb-4">{servicio.descripcion}</p>
-            <ul className="list-disc pl-5 text-sm text-start text-gray-400 mb-4">
-              {servicio.incluye.map((item, i) => (
-                <li key={i}>{item}</li>
-              ))}
-            </ul>
-            <p className="text-lg font-bold text-fuchsia-300 mb-4">
-              Precio: {servicio.precio}
-            </p>
-            <button
-              onClick={() => enviarWhatsapp(servicio.titulo)}
-              className="mt-2 bg-fuchsia-600 hover:bg-fuchsia-500 text-white px-4 py-2 rounded-xl transition-all"
+
+      {/* items-stretch asegura que las tarjetas ocupen el alto disponible */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 items-stretch">
+        {servicios.map((servicio, index) => {
+          const precioOriginal = servicio.precio;
+          const precioPromo = Math.round(precioOriginal / 2);
+
+          return (
+            <div
+              key={index}
+              className="bg-slate-900 rounded-2xl p-8 shadow-lg hover:shadow-fuchsia-500/50 transition duration-300 transform hover:-translate-y-2 h-full flex flex-col"
             >
-              Solicitar este servicio
-            </button>
-          </div>
-        ))}
+              {/* Contenido flexible que crece */}
+              <div className="flex-1 flex flex-col">
+                <h3 className="text-2xl font-bold mb-3 text-fuchsia-400">
+                  {servicio.titulo}
+                </h3>
+                <p className="text-gray-300 mb-5">{servicio.descripcion}</p>
+
+                <ul className="list-disc pl-5 text-sm text-start text-gray-400 mb-5 space-y-1">
+                  {servicio.incluye.map((item, i) => (
+                    <li key={i}>{item}</li>
+                  ))}
+                </ul>
+
+                {/* Precios */}
+                <div className="mb-5">
+                  <p className="text-gray-500 line-through text-lg">
+                    ${precioOriginal.toLocaleString("es-AR")}
+                  </p>
+                  <p className="text-2xl font-extrabold text-fuchsia-300 animate-pulse">
+                    ${precioPromo.toLocaleString("es-AR")}{" "}
+                    <span className="text-sm">(50% OFF)</span>
+                  </p>
+                </div>
+              </div>
+
+              {/* Botonera fija al fondo */}
+              <div className="mt-auto flex flex-col gap-3">
+                <button
+                  onClick={() =>
+                    abrirWhatsapp(
+                      `Hola, estoy interesado/a en el servicio de ${servicio.titulo}. ¿Me podés contar más?`
+                    )
+                  }
+                  className="bg-fuchsia-600 hover:bg-fuchsia-500 text-white px-4 py-2 rounded-xl transition-all font-medium"
+                >
+                  Solicitar este servicio
+                </button>
+
+                <button
+                  onClick={() => abrirWhatsapp("reservar mi lugar")}
+                  className="border border-fuchsia-400 text-fuchsia-300 hover:bg-fuchsia-600 hover:text-white px-4 py-2 rounded-xl transition-all font-medium"
+                >
+                  Reservar lugar
+                </button>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
