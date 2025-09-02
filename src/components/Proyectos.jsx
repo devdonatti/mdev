@@ -24,6 +24,12 @@ const Proyectos = () => {
             demoLink: "https://tiendasmile.vercel.app/",
           },
           {
+            title: "Tienda online VikingTech",
+            imgSrc: "/vista-app-viking.png",
+            detailsLink: "/detalles/1",
+            demoLink: "https://vikingtech.com.ar/",
+          },
+          {
             title: "Epex e Hijos",
             imgSrc: "/vista-epex.png",
             detailsLink: "/detalles/1",
