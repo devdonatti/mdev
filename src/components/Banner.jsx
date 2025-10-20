@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { AiFillGithub } from "react-icons/ai";
+import CotizarModal from "../components/CotizarModal";
+
 import {
   FaInstagram,
   FaLinkedin,
@@ -27,6 +29,7 @@ const Banner = () => {
   const handleClosePdf = () => {
     setShowPdf(false);
   };
+  const [open, setOpen] = useState(false);
 
   return (
     <div
@@ -35,30 +38,24 @@ const Banner = () => {
     >
       <div className="px-4 lg:px-20 py-20 flex flex-col lg:flex-row justify-between items-center min-h-screen mt-32 md:mt-0">
         <div className="w-full flex flex-col justify-center items-center lg:items-start text-center lg:text-left text-fuchsia-600 gap-8">
-          <h1
-            data-aos="fade-right"
-            className="text-2xl lg:text-4xl  mb-6 leading-tight font-raleway"
-          >
-            <h2 className="text-5xl lg:text-5xl p-  font-raleway">
-              {" "}
-              <span className="text-white">
-                MDev | Desarrollo web <br />
-              </span>{" "}
-            </h2>
-            <span className="text-white text-3xl lg:text-3xl font-raleway ">
+          <div data-aos="fade-right" className="text-center lg:text-left">
+            <h1 className="text-5xl font-raleway text-white">
+              MDev | Desarrollo web
+            </h1>
+            <h2 className="text-3xl font-raleway text-white">
               Creamos el sitio web para tu negocio
-            </span>
-          </h1>
+            </h2>
+          </div>
 
           <div className="flex mt-8 gap-4 justify-center lg:justify-start ">
-            <a
-              href="https://wa.me/1170618004?text=Hola%2C%20quiero%20más%20información%20sobre%20sus%20servicios"
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              onClick={() => setOpen(true)}
               className="bg-black hover:text-fuchsia-500 glow p-4 rounded lg:text-5xl text-white font-raleway"
             >
-              Contactanos
-            </a>
+              Cotizar
+            </button>
+
+            <CotizarModal isOpen={open} onClose={() => setOpen(false)} />
 
             {/*<a
               target="_blank"
