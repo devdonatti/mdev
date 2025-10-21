@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+{
+  /*import React, { useState } from "react";
 
 const MERCADOPAGO_URL =
   "https://www.mercadopago.com.ar/checkout/v1/payment/redirect/?source=link&preference-id=2685135282-55e1bd72-a111-4095-a64e-5d062d5ed7a0&router-request-id=47735e79-d9f6-44f5-94d0-e2ddab30b4eb";
@@ -256,3 +257,101 @@ const CotizarModal = ({ isOpen, onClose }) => {
 };
 
 export default CotizarModal;
+*/
+}
+
+import { useState } from "react";
+
+export default function CotizarModal() {
+  const [showModal, setShowModal] = useState(false); // controla si se ve el modal
+  const [nombre, setNombre] = useState("");
+  const [email, setEmail] = useState("");
+  const [mensaje, setMensaje] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const response = await fetch("/netlify/sendLead.js", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ nombre, email, mensaje }),
+      });
+
+      if (response.ok) {
+        alert("¡Gracias! Tu cotización fue enviada.");
+        setNombre("");
+        setEmail("");
+        setMensaje("");
+        setShowModal(false); // cerrar modal al enviar
+      } else {
+        alert("Ocurrió un error, inténtalo de nuevo.");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Ocurrió un error, inténtalo de nuevo.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <>
+      {/* Botón para abrir modal */}
+      <button
+        onClick={() => setShowModal(true)}
+        className="bg-purple-600 text-white px-4 py-2 rounded"
+      >
+        Cotizar
+      </button>
+
+      {/* Modal */}
+      {showModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg w-96 relative">
+            <button
+              onClick={() => setShowModal(false)}
+              className="absolute top-2 right-2 text-gray-500"
+            >
+              ✖
+            </button>
+            <h2 className="text-xl mb-4">Cotización</h2>
+            <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+              <input
+                type="text"
+                placeholder="Nombre"
+                value={nombre}
+                onChange={(e) => setNombre(e.target.value)}
+                required
+                className="border px-2 py-1 rounded"
+              />
+              <input
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="border px-2 py-1 rounded"
+              />
+              <textarea
+                placeholder="Mensaje"
+                value={mensaje}
+                onChange={(e) => setMensaje(e.target.value)}
+                className="border px-2 py-1 rounded"
+              />
+              <button
+                type="submit"
+                disabled={loading}
+                className="bg-purple-600 text-white px-4 py-2 rounded mt-2"
+              >
+                {loading ? "Enviando..." : "Enviar"}
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
