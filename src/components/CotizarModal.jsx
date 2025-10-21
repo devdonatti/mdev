@@ -303,7 +303,12 @@ export default function CotizarModal() {
 
   return (
     <>
-      <button onClick={() => setShowModal(true)}>Cotizar</button>
+      <button
+        className="bg-black hover:text-fuchsia-500 glow p-4 rounded lg:text-5xl text-white font-raleway"
+        onClick={() => setShowModal(true)}
+      >
+        Cotizar
+      </button>
 
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center">

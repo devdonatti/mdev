@@ -48,13 +48,6 @@ const Banner = () => {
           </div>
 
           <div className="flex mt-8 gap-4 justify-center lg:justify-start ">
-            <button
-              onClick={() => setOpen(true)}
-              className="bg-black hover:text-fuchsia-500 glow p-4 rounded lg:text-5xl text-white font-raleway"
-            >
-              Cotizar
-            </button>
-
             <CotizarModal isOpen={open} onClose={() => setOpen(false)} />
 
             {/*<a
