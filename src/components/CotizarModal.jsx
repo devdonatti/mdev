@@ -263,10 +263,11 @@ export default CotizarModal;
 import { useState } from "react";
 
 export default function CotizarModal() {
-  const [showModal, setShowModal] = useState(false); // controla si se ve el modal
+  const [showModal, setShowModal] = useState(false);
   const [nombre, setNombre] = useState("");
   const [email, setEmail] = useState("");
-  const [mensaje, setMensaje] = useState("");
+  const [whatsapp, setWhatsapp] = useState("");
+  const [tipoProyecto, setTipoProyecto] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -274,29 +275,27 @@ export default function CotizarModal() {
     setLoading(true);
 
     try {
-      const response = await fetch("/.netlify/functions/sendLead", {
+      const res = await fetch("/.netlify/functions/sendLead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          nombre,
-          email,
-          whatsapp,
-          tipoProyecto,
-        }),
+        body: JSON.stringify({ nombre, email, whatsapp, tipoProyecto }),
       });
 
-      if (response.ok) {
+      if (res.ok) {
         alert("¡Gracias! Tu cotización fue enviada.");
         setNombre("");
         setEmail("");
-        setMensaje("");
-        setShowModal(false); // cerrar modal al enviar
+        setWhatsapp("");
+        setTipoProyecto("");
+        setShowModal(false);
       } else {
-        alert("Ocurrió un error, inténtalo de nuevo.");
+        const text = await res.text();
+        console.error("Server error:", text);
+        alert("Ocurrió un error al enviar. Revisá la consola.");
       }
-    } catch (error) {
-      console.error(error);
-      alert("Ocurrió un error, inténtalo de nuevo.");
+    } catch (err) {
+      console.error("Fetch error:", err);
+      alert("Ocurrió un error de conexión.");
     } finally {
       setLoading(false);
     }
@@ -304,53 +303,49 @@ export default function CotizarModal() {
 
   return (
     <>
-      {/* Botón para abrir modal */}
-      <button
-        onClick={() => setShowModal(true)}
-        className="bg-purple-600 text-white px-4 py-2 rounded"
-      >
-        Cotizar
-      </button>
+      <button onClick={() => setShowModal(true)}>Cotizar</button>
 
-      {/* Modal */}
       {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-lg w-96 relative">
-            <button
-              onClick={() => setShowModal(false)}
-              className="absolute top-2 right-2 text-gray-500"
-            >
+        <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+          <div className="bg-white p-6 rounded w-96">
+            <button onClick={() => setShowModal(false)} className="float-right">
               ✖
             </button>
-            <h2 className="text-xl mb-4">Cotización</h2>
-            <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+            <h3>Cotización</h3>
+            <form onSubmit={handleSubmit} className="flex flex-col gap-2 mt-3">
               <input
-                type="text"
+                name="nombre"
                 placeholder="Nombre"
                 value={nombre}
                 onChange={(e) => setNombre(e.target.value)}
                 required
-                className="border px-2 py-1 rounded"
               />
               <input
+                name="email"
                 type="email"
                 placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="border px-2 py-1 rounded"
               />
-              <textarea
-                placeholder="Mensaje"
-                value={mensaje}
-                onChange={(e) => setMensaje(e.target.value)}
-                className="border px-2 py-1 rounded"
+              <input
+                name="whatsapp"
+                placeholder="WhatsApp"
+                value={whatsapp}
+                onChange={(e) => setWhatsapp(e.target.value)}
               />
-              <button
-                type="submit"
-                disabled={loading}
-                className="bg-purple-600 text-white px-4 py-2 rounded mt-2"
+              <select
+                name="tipoProyecto"
+                value={tipoProyecto}
+                onChange={(e) => setTipoProyecto(e.target.value)}
+                required
               >
+                <option value="">Tipo de proyecto</option>
+                <option value="Landing">Landing</option>
+                <option value="Tienda">Tienda online</option>
+                <option value="Automatización">Automatización</option>
+              </select>
+              <button type="submit" disabled={loading}>
                 {loading ? "Enviando..." : "Enviar"}
               </button>
             </form>

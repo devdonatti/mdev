@@ -1,40 +1,57 @@
+// netlify/functions/sendLead.js
 export async function handler(event, context) {
   try {
     if (!event.body) {
       return { statusCode: 400, body: "No data received" };
     }
 
-    const data = JSON.parse(event.body);
-    console.log("Lead recibido:", data);
+    // parsear seguro (event.body viene como string)
+    let incoming;
+    try {
+      incoming = JSON.parse(event.body);
+    } catch (e) {
+      // si por algún motivo viene urlencoded, tratamos de parsear manualmente
+      const params = Object.fromEntries(new URLSearchParams(event.body));
+      incoming = params;
+    }
 
-    // Mapeo de datos con los mismos nombres que tus columnas de Sheets
+    console.log("Incoming raw:", incoming);
+
+    // mapear exactamente los nombres que tiene tu Google Sheet
     const dataToSend = {
       Fecha: new Date().toLocaleString("es-AR"),
-      Nombre: data.nombre || "",
-      Email: data.email || "",
-      WhatsApp: data.whatsapp || "",
-      "Tipo de proyecto": data.tipoProyecto || "",
+      Nombre: incoming.nombre || incoming.name || "",
+      Email: incoming.email || "",
+      WhatsApp: incoming.whatsapp || incoming.whatsApp || incoming.phone || "",
+      "Tipo de proyecto":
+        incoming.tipoProyecto || incoming.tipo_proyecto || incoming.type || "",
       Estado: "Nuevo Lead",
     };
 
-    // 👉 URL de tu Webhook de Zapier
-    const ZAPIER_WEBHOOK_URL =
-      "https://hooks.zapier.com/hooks/catch/XXXXXXX/XXXXXXX/";
+    console.log("Data to send to Zapier:", dataToSend);
 
-    // Enviar datos a Zapier
-    const response = await fetch(ZAPIER_WEBHOOK_URL, {
+    // URL de tu webhook de Zapier (reemplazala)
+    const ZAPIER_WEBHOOK_URL =
+      "https://hooks.zapier.com/hooks/catch/25038243/urs17r1/";
+
+    const resp = await fetch(ZAPIER_WEBHOOK_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(dataToSend),
     });
 
-    if (!response.ok) {
-      throw new Error(`Error al enviar a Zapier: ${response.statusText}`);
+    if (!resp.ok) {
+      const text = await resp.text().catch(() => "");
+      console.error("Zapier response not ok:", resp.status, text);
+      throw new Error("Error sending to Zapier");
     }
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: "Lead enviado correctamente a Zapier" }),
+      body: JSON.stringify({
+        message: "Lead enviado correctamente a Zapier",
+        dataToSend,
+      }),
     };
   } catch (err) {
     console.error("Error en función:", err);
