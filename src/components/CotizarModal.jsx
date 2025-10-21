@@ -277,7 +277,12 @@ export default function CotizarModal() {
       const response = await fetch("/.netlify/functions/sendLead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nombre, email, mensaje }),
+        body: JSON.stringify({
+          nombre,
+          email,
+          whatsapp,
+          tipoProyecto,
+        }),
       });
 
       if (response.ok) {
