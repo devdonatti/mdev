@@ -1,28 +1,20 @@
-// api/sendLead.js (Vercel) o functions/sendLead.js (Netlify)
-export default async function handler(req, res) {
-  if (req.method !== "POST") {
-    return res.status(405).json({ ok: false, error: "Method not allowed" });
-  }
-
-  const { nombre, email, mensaje } = req.body;
-
+// netlify/functions/sendLead.js
+export async function handler(event, context) {
   try {
-    const zapierWebhook =
-      "https://hooks.zapier.com/hooks/catch/25038243/urs17r1/";
-
-    const response = await fetch(zapierWebhook, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ nombre, email, mensaje }),
-    });
-
-    if (response.ok) {
-      return res.status(200).json({ ok: true, message: "Lead enviado" });
-    } else {
-      return res.status(500).json({ ok: false, message: "Error en Zapier" });
+    if (!event.body) {
+      return { statusCode: 400, body: "No data received" };
     }
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ ok: false, error });
+
+    const data = JSON.parse(event.body);
+    console.log("Lead recibido:", data);
+
+    // TODO: enviar a Zapier/Google Sheets aquí
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ message: "Lead recibido correctamente" }),
+    };
+  } catch (err) {
+    console.error("Error en función:", err);
+    return { statusCode: 500, body: JSON.stringify({ error: err.message }) };
   }
 }
