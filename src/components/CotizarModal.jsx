@@ -274,11 +274,25 @@ export default function CotizarModal() {
     e.preventDefault();
     setLoading(true);
 
+    // --- Formatear WhatsApp con +54 ---
+    let whatsappFormatted = whatsapp.replace(/\D/g, ""); // elimina espacios, guiones, paréntesis
+    if (whatsappFormatted && !whatsappFormatted.startsWith("54")) {
+      whatsappFormatted = "54" + whatsappFormatted;
+    }
+    if (whatsappFormatted) {
+      whatsappFormatted = "+" + whatsappFormatted;
+    }
+
     try {
       const res = await fetch("/.netlify/functions/sendLead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nombre, email, whatsapp, tipoProyecto }),
+        body: JSON.stringify({
+          nombre,
+          email,
+          whatsapp: whatsappFormatted,
+          tipoProyecto,
+        }),
       });
 
       if (res.ok) {
