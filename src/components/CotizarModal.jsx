@@ -274,10 +274,10 @@ export default function CotizarModal() {
     e.preventDefault();
     setLoading(true);
 
-    // --- Formatear WhatsApp con +54 ---
-    let whatsappFormatted = whatsapp.replace(/\D/g, ""); // elimina espacios, guiones, paréntesis
-    if (whatsappFormatted && !whatsappFormatted.startsWith("54")) {
-      whatsappFormatted = "54" + whatsappFormatted;
+    // --- Formatear WhatsApp con +549 ---
+    let whatsappFormatted = whatsapp.replace(/\D/g, ""); // elimina todo que no sea número
+    if (whatsappFormatted && !whatsappFormatted.startsWith("549")) {
+      whatsappFormatted = "549" + whatsappFormatted;
     }
     if (whatsappFormatted) {
       whatsappFormatted = "+" + whatsappFormatted;
