@@ -17,7 +17,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 function App() {
   return (
     <Router>
-      <div className="bg-slate-700 min-h-screen overflow-x-hidden w-full">
+      <div className=" min-h-screen overflow-x-hidden w-full">
         <Navbar />
 
         <Routes>
@@ -32,7 +32,7 @@ function App() {
 
                 {/* Fondo global para los demás componentes */}
                 <div
-                  className="min-h-screen bg-cover bg-center bg-no-repeat"
+                  className="min-h-screen bg-cover bg-center bg-no-repeat bg-slate-200"
                   style={{ backgroundImage: "url('/fondoo.png')" }}
                 >
                   <SobreMi />

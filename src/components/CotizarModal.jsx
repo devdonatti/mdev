@@ -1,287 +1,38 @@
-{
-  /*import React, { useState } from "react";
-
-const MERCADOPAGO_URL =
-  "https://www.mercadopago.com.ar/checkout/v1/payment/redirect/?source=link&preference-id=2685135282-55e1bd72-a111-4095-a64e-5d062d5ed7a0&router-request-id=47735e79-d9f6-44f5-94d0-e2ddab30b4eb";
-const waNumber = "5491170618004";
-
-const CotizarModal = ({ isOpen, onClose }) => {
-  const [form, setForm] = useState({
-    nombre: "",
-    email: "",
-    whatsapp: "",
-    servicio: "Landing / Página institucional",
-    presupuesto: "",
-    mensaje: "",
-  });
-  const [errors, setErrors] = useState({});
-  const [submitting, setSubmitting] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [serverError, setServerError] = useState("");
-
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const phoneRegex = /^[0-9]{7,15}$/;
-
-  const validate = () => {
-    const e = {};
-    if (!form.nombre.trim()) e.nombre = "El nombre es obligatorio";
-    if (!emailRegex.test(form.email)) e.email = "Email inválido";
-    if (!phoneRegex.test(form.whatsapp.replace(/\D/g, "")))
-      e.whatsapp = "Número inválido (solo números)";
-    return e;
-  };
-
-  const handleChange = (ev) => {
-    const { name, value } = ev.target;
-    setForm((s) => ({ ...s, [name]: value }));
-  };
-
-  const submitLeadToProxy = async (leadData) => {
-    try {
-      const response = await fetch("/.netlify/functions/sendLead", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(leadData),
-      });
-      if (!response.ok) throw new Error("Error enviando lead");
-      console.log("Lead enviado correctamente a Zapier vía proxy");
-    } catch (err) {
-      console.error("Error guardando lead o abriendo MP:", err);
-      throw err;
-    }
-  };
-
-  const handleSubmit = async (ev) => {
-    ev.preventDefault();
-    setServerError("");
-    const e = validate();
-    setErrors(e);
-    if (Object.keys(e).length) return;
-
-    setSubmitting(true);
-
-    const payload = {
-      nombre: form.nombre,
-      email: form.email,
-      whatsapp: form.whatsapp,
-      servicio: form.servicio,
-      presupuesto: form.presupuesto,
-      mensaje: form.mensaje,
-      fecha: new Date().toISOString(),
-      estado: "Nuevo",
-      source: "Landing - Botón Cotizar",
-    };
-
-    try {
-      await submitLeadToProxy(payload);
-      setSuccess(true);
-      window.open(MERCADOPAGO_URL, "_blank", "noopener,noreferrer");
-    } catch {
-      setServerError(
-        "No se pudo guardar tu solicitud automáticamente. Podés intentar de nuevo o abrir MercadoPago manualmente."
-      );
-    } finally {
-      setSubmitting(false);
-    }
-  };
-
-  if (!isOpen) return null;
-
-  const resetAndClose = () => {
-    setForm({
-      nombre: "",
-      email: "",
-      whatsapp: "",
-      servicio: "Landing / Página institucional",
-      presupuesto: "",
-      mensaje: "",
-    });
-    setErrors({});
-    setSuccess(false);
-    setServerError("");
-    onClose();
-  };
-
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4">
-      <div className="bg-white rounded-2xl shadow-lg w-full max-w-2xl p-6">
-        <div className="flex justify-between items-center mb-4">
-          <h3 className="text-2xl font-semibold">Solicitar cotización</h3>
-          <button onClick={resetAndClose} className="text-sm">
-            Cerrar ✕
-          </button>
-        </div>
-
-        {!success ? (
-          <>
-            <p className="mb-4 text-sm">
-              Completá los datos para reservar tu lugar. Después serás
-              redirigido al pago de la seña.
-            </p>
-
-            <form onSubmit={handleSubmit} className="space-y-3">
-              <input
-                name="nombre"
-                value={form.nombre}
-                onChange={handleChange}
-                placeholder="Nombre completo"
-                className={`w-full p-3 rounded border ${
-                  errors.nombre ? "border-red-500" : "border-gray-200"
-                }`}
-              />
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
-                <input
-                  name="email"
-                  value={form.email}
-                  onChange={handleChange}
-                  placeholder="Email"
-                  className={`w-full p-3 rounded border ${
-                    errors.email ? "border-red-500" : "border-gray-200"
-                  }`}
-                />
-                <input
-                  name="whatsapp"
-                  value={form.whatsapp}
-                  onChange={handleChange}
-                  placeholder="WhatsApp (ej: 5493416xxxxxx)"
-                  className={`w-full p-3 rounded border ${
-                    errors.whatsapp ? "border-red-500" : "border-gray-200"
-                  }`}
-                />
-              </div>
-
-              <select
-                name="servicio"
-                value={form.servicio}
-                onChange={handleChange}
-                className="w-full p-3 rounded border border-gray-200"
-              >
-                <option>Landing / Página institucional</option>
-                <option>Tienda online</option>
-                <option>Automatización / CRM</option>
-                <option>Diseño web + Branding</option>
-                <option>Otro</option>
-              </select>
-
-              <input
-                name="presupuesto"
-                value={form.presupuesto}
-                onChange={handleChange}
-                placeholder="Presupuesto aproximado (opcional)"
-                className="w-full p-3 rounded border border-gray-200"
-              />
-
-              <textarea
-                name="mensaje"
-                value={form.mensaje}
-                onChange={handleChange}
-                placeholder="Contanos brevemente tu proyecto"
-                className="w-full p-3 rounded border border-gray-200"
-                rows={4}
-              />
-
-              {serverError && (
-                <p className="text-red-600 text-sm">{serverError}</p>
-              )}
-
-              <div className="flex items-center gap-3 mt-2">
-                <button
-                  type="submit"
-                  disabled={submitting}
-                  className="bg-black text-white px-5 py-3 rounded font-medium"
-                >
-                  {submitting ? "Procesando..." : "Pagá tu seña y comenzamos"}
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => {
-                    const waMsg = encodeURIComponent(
-                      `Hola, soy ${form.nombre || ""}. Me interesa ${
-                        form.servicio
-                      }.`
-                    );
-                    window.open(
-                      `https://wa.me/${waNumber}?text=${waMsg}`,
-                      "_blank"
-                    );
-                  }}
-                  className="px-4 py-3 border rounded"
-                >
-                  Chatear por WhatsApp
-                </button>
-              </div>
-            </form>
-          </>
-        ) : (
-          <div className="text-center space-y-4">
-            <h3 className="text-2xl font-semibold">¡Gracias! 🙌</h3>
-            <p>
-              Tu solicitud quedó registrada y se abrió la pasarela de pago. Si
-              no abriste MercadoPago, podés hacerlo desde acá:
-            </p>
-
-            <div className="flex justify-center gap-3 mt-3">
-              <a
-                target="_blank"
-                rel="noreferrer"
-                href={MERCADOPAGO_URL}
-                className="px-4 py-3 bg-black text-white rounded"
-              >
-                Abrir MercadoPago
-              </a>
-              <button
-                onClick={() => {
-                  const waMsg = encodeURIComponent(
-                    `Hola, soy ${form.nombre}. He solicitado una cotización y realicé la seña.`
-                  );
-                  window.open(
-                    `https://wa.me/${waNumber}?text=${waMsg}`,
-                    "_blank"
-                  );
-                }}
-                className="px-4 py-3 border rounded"
-              >
-                Confirmar por WhatsApp
-              </button>
-            </div>
-
-            <button className="mt-4 text-sm underline" onClick={resetAndClose}>
-              Cerrar
-            </button>
-          </div>
-        )}
-      </div>
-    </div>
-  );
-};
-
-export default CotizarModal;
-*/
-}
-
 import { useState } from "react";
 
-export default function CotizarModal() {
+// -------------------------
+// COMPONENTE PRINCIPAL
+// -------------------------
+export default function CotizarConCalificacion() {
   const [showModal, setShowModal] = useState(false);
+  const [showSecond, setShowSecond] = useState(false);
+
+  // Primer formulario
   const [nombre, setNombre] = useState("");
   const [email, setEmail] = useState("");
   const [whatsapp, setWhatsapp] = useState("");
   const [tipoProyecto, setTipoProyecto] = useState("");
   const [loading, setLoading] = useState(false);
 
+  // Segundo formulario
+  const [urgencia, setUrgencia] = useState("");
+  const [presupuesto, setPresupuesto] = useState("");
+  const [tipo2, setTipo2] = useState("");
+  const [rubro, setRubro] = useState("");
+  const [conocimiento, setConocimiento] = useState("");
+  const [problema, setProblema] = useState("");
+
+  // -------------------------
+  // ENVÍO PRIMER FORM
+  // -------------------------
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
-    // --- Formatear WhatsApp con +549 ---
-    let whatsappFormatted = whatsapp.replace(/\D/g, ""); // elimina todo que no sea número
-    if (whatsappFormatted && !whatsappFormatted.startsWith("549")) {
-      whatsappFormatted = "549" + whatsappFormatted;
-    }
-    if (whatsappFormatted) {
-      whatsappFormatted = "+" + whatsappFormatted;
-    }
+    // Formatear WhatsApp
+    let wpp = whatsapp.replace(/\D/g, "");
+    if (wpp && !wpp.startsWith("549")) wpp = "549" + wpp;
+    if (wpp) wpp = "+" + wpp;
 
     try {
       const res = await fetch("/.netlify/functions/sendLead", {
@@ -290,33 +41,53 @@ export default function CotizarModal() {
         body: JSON.stringify({
           nombre,
           email,
-          whatsapp: whatsappFormatted,
+          whatsapp: wpp,
           tipoProyecto,
         }),
       });
 
       if (res.ok) {
-        alert("¡Gracias! Tu cotización fue enviada.");
-        setNombre("");
-        setEmail("");
-        setWhatsapp("");
-        setTipoProyecto("");
+        // Limpia
         setShowModal(false);
+        setShowSecond(true); // 👉 Abre el segundo formulario
       } else {
-        const text = await res.text();
-        console.error("Server error:", text);
-        alert("Ocurrió un error al enviar. Revisá la consola.");
+        alert("Hubo un error al enviar el formulario.");
       }
-    } catch (err) {
-      console.error("Fetch error:", err);
-      alert("Ocurrió un error de conexión.");
+    } catch (error) {
+      alert("Error de conexión.");
     } finally {
       setLoading(false);
     }
   };
 
+  // -------------------------
+  // ENVÍO SEGUNDO FORM —> WhatsApp
+  // -------------------------
+  const enviarWhatsApp = (e) => {
+    e.preventDefault();
+
+    const mensaje = `
+✨ *Nuevo Lead Calificado* ✨
+
+*Urgencia:* ${urgencia}
+*Presupuesto:* ${presupuesto}
+*Tipo de proyecto:* ${tipo2}
+*Rubro:* ${rubro}
+*Conocimiento digital:* ${conocimiento}
+*Problema principal:* ${problema}
+`;
+
+    const numero = "1170618004"; // tu número
+
+    const url = `https://wa.me/54${numero}?text=${encodeURIComponent(mensaje)}`;
+
+    window.open(url, "_blank");
+    setShowSecond(false);
+  };
+
   return (
     <>
+      {/* BOTÓN COTIZAR */}
       <button
         className="bg-black hover:text-fuchsia-500 glow p-4 rounded lg:text-5xl text-white font-raleway"
         onClick={() => setShowModal(true)}
@@ -324,20 +95,24 @@ export default function CotizarModal() {
         Cotizar
       </button>
 
+      {/* -------------------- PRIMER FORMULARIO -------------------- */}
       {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded w-96">
             <button onClick={() => setShowModal(false)} className="float-right">
               ✖
             </button>
-            <h3>Cotización</h3>
-            <form onSubmit={handleSubmit} className="flex flex-col gap-2 mt-3">
+
+            <h3 className="text-xl font-bold mb-3">Cotización</h3>
+
+            <form onSubmit={handleSubmit} className="flex flex-col gap-2">
               <input
                 name="nombre"
                 placeholder="Nombre"
                 value={nombre}
                 onChange={(e) => setNombre(e.target.value)}
                 required
+                className="border p-2 rounded"
               />
               <input
                 name="email"
@@ -346,26 +121,137 @@ export default function CotizarModal() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                className="border p-2 rounded"
               />
               <input
                 name="whatsapp"
                 placeholder="WhatsApp"
                 value={whatsapp}
                 onChange={(e) => setWhatsapp(e.target.value)}
+                className="border p-2 rounded"
               />
+
               <select
-                name="tipoProyecto"
                 value={tipoProyecto}
                 onChange={(e) => setTipoProyecto(e.target.value)}
                 required
+                className="border p-2 rounded"
               >
                 <option value="">Tipo de proyecto</option>
-                <option value="Landing">Landing</option>
-                <option value="Tienda">Tienda online</option>
-                <option value="Automatización">Automatización</option>
+                <option value="Landing page">Landing page</option>
+                <option value="Tienda online">Tienda online</option>
+                <option value="Página institucional">
+                  Página institucional
+                </option>
+                <option value="Personalizado">Algo más personalizado</option>
               </select>
-              <button type="submit" disabled={loading}>
+
+              <button
+                type="submit"
+                disabled={loading}
+                className="bg-fuchsia-600 text-white p-2 rounded"
+              >
                 {loading ? "Enviando..." : "Enviar"}
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* -------------------- SEGUNDO FORMULARIO -------------------- */}
+      {showSecond && (
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+          <div className="bg-white w-96 p-6 rounded-xl shadow-xl relative">
+            <button
+              className="absolute top-2 right-3"
+              onClick={() => setShowSecond(false)}
+            >
+              ✖
+            </button>
+
+            <h2 className="text-xl font-semibold mb-4 text-center">
+              Para conocerte mejor 💬
+            </h2>
+
+            <form onSubmit={enviarWhatsApp} className="flex flex-col gap-3">
+              <select
+                value={urgencia}
+                onChange={(e) => setUrgencia(e.target.value)}
+                required
+                className="border p-2 rounded"
+              >
+                <option value="">¿Qué tanta urgencia tenés?</option>
+                <option value="Lo necesito esta semana">
+                  Lo necesito esta semana
+                </option>
+                <option value="Este mes">Este mes</option>
+                <option value="Estoy averiguando">
+                  Solo estoy averiguando
+                </option>
+              </select>
+
+              <select
+                value={presupuesto}
+                onChange={(e) => setPresupuesto(e.target.value)}
+                required
+                className="border p-2 rounded"
+              >
+                <option value="">Presupuesto estimado</option>
+                <option value="-100000">Menos de $100.000</option>
+                <option value="100000-300000">$100.000 – $300.000</option>
+                <option value="+300000">Más de $300.000</option>
+              </select>
+
+              <select
+                value={tipo2}
+                onChange={(e) => setTipo2(e.target.value)}
+                required
+                className="border p-2 rounded"
+              >
+                <option value="">Tipo de proyecto</option>
+                <option value="Landing Page">Landing Page</option>
+                <option value="Tienda online">Tienda Online</option>
+                <option value="Página institucional">
+                  Página institucional
+                </option>
+                <option value="Personalizado">Personalizado</option>
+              </select>
+
+              <input
+                type="text"
+                placeholder="¿En qué rubro trabajás?"
+                value={rubro}
+                onChange={(e) => setRubro(e.target.value)}
+                required
+                className="border p-2 rounded"
+              />
+
+              <select
+                value={conocimiento}
+                onChange={(e) => setConocimiento(e.target.value)}
+                required
+                className="border p-2 rounded"
+              >
+                <option value="">Nivel de conocimiento digital</option>
+                <option value="Bajo">Bajo</option>
+                <option value="Medio">Medio</option>
+                <option value="Alto">Alto</option>
+              </select>
+
+              <textarea
+                placeholder="¿Qué problema querés resolver?"
+                value={problema}
+                onChange={(e) => setProblema(e.target.value)}
+                required
+                className="border p-2 rounded"
+                rows={3}
+              />
+
+              <button
+                type="submit"
+                className="bg-fuchsia-600 text-white py-2 rounded-lg hover:bg-fuchsia-500 transition"
+              >
+                Enviar a WhatsApp
               </button>
             </form>
           </div>

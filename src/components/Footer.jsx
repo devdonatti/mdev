@@ -3,7 +3,7 @@ import { FaInstagram, FaVoicemail, FaWhatsapp, FaPhone } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="bg-slate-800 text-white bg-gradient-to-r from-slate-900 to-purple-600 shadow-xl">
+    <footer className="bg-slate-200">
       <div className="container mx-auto lg:px-24 px-4 py-8 grid grid-cols-1 md:grid-cols-4 gap-8 text-center md:text-left place-items-center md:place-items-start">
         {/* Logo */}
         <div className="mb-4 md:mb-0 flex items-center justify-center">
@@ -29,12 +29,11 @@ const Footer = () => {
             Contacto
           </h2>
           <p className="text-sm my-2 font-raleway">
-            EMAIL:{" "}
             <a
               href="mailto:mdonattiprogramacion@gmail.com"
               className="hover:underline"
             >
-              mdonattiprogramacion@gmail.com
+              desarrollomdev@gmail.com
             </a>
           </p>
           <p className="text-sm flex justify-center md:justify-start items-center my-2 font-raleway">
@@ -51,7 +50,7 @@ const Footer = () => {
           <div className="flex justify-center md:justify-start space-x-4">
             <a
               href="https://www.instagram.com/desarrollo.mdev"
-              className="text-white hover:text-fuchsia-500 transition-colors duration-300"
+              className="text-black hover:text-fuchsia-500 transition-colors duration-300"
             >
               <FaInstagram size={24} />
             </a>
@@ -60,14 +59,14 @@ const Footer = () => {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="WhatsApp"
-              className="text-white hover:text-fuchsia-500 transition-colors duration-300"
+              className="text-black hover:text-fuchsia-500 transition-colors duration-300"
             >
               <FaWhatsapp size={24} />
             </a>
             <a
-              href="mailto:mdonattiprogramacion@gmail.com"
+              href="mailto:desarrollomdev@gmail.com"
               aria-label="Email"
-              className="text-white hover:text-fuchsia-500 transition-colors duration-300"
+              className="text-black hover:text-fuchsia-500 transition-colors duration-300"
             >
               <FaVoicemail size={24} />
             </a>
@@ -76,8 +75,8 @@ const Footer = () => {
       </div>
 
       {/* Footer Bottom */}
-      <section className="bg-fuchsia-800 text-white text-center py-4 bg-gradient-to-r from-slate-800">
-        <h1 className="font-raleway">
+      <section className=" text-black  text-center py-2 bg-slate-300">
+        <h1 className="font-raleway p-1">
           Desarrollado por <strong>MDev</strong>
         </h1>
       </section>

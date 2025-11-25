@@ -92,7 +92,7 @@ const Servicios = () => {
                   ))}
                 </ul>
 
-                {/* Precios */}
+                {/*
                 <div className="mb-5">
                   <p className="text-gray-500 line-through text-lg">
                     ${precioOriginal.toLocaleString("es-AR")}
@@ -102,6 +102,7 @@ const Servicios = () => {
                     <span className="text-sm">(50% OFF)</span>
                   </p>
                 </div>
+                */}
               </div>
 
               {/* Botonera fija al fondo */}
