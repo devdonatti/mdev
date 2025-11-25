@@ -43,7 +43,7 @@ export async function handler(event, context) {
     if (!resp.ok) {
       const text = await resp.text().catch(() => "");
       console.error("Zapier response not ok:", resp.status, text);
-      throw new Error("Error sending to Zapier");
+      throw new Error("Error sending to Zapier: " + resp.status + " " + text);
     }
 
     return {
