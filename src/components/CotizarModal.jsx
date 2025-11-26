@@ -85,13 +85,18 @@ export default function CotizarModal() {
     e.preventDefault();
 
     const text = `
-Hola Mica, te dejo más información sobre mi proyecto:
-
-🔹 *Objetivo del sitio:* ${advancedForm.objetivo}
-🔹 *Presupuesto estimado:* ${advancedForm.presupuesto}
-🔹 *Tiempo esperado:* ${advancedForm.tiempo}
-
-¡Quedo atenta!
+  Hola!, soy *${form.nombre}* 🙋‍♂️🙋‍♀️
+  
+  Estoy interesado/a en una *${form.tipoProyecto}*.
+  
+  📌 *Objetivo del sitio:* ${advancedForm.objetivo}
+  💰 *Presupuesto estimado:* ${advancedForm.presupuesto}
+  ⏳ *Tiempo esperado:* ${advancedForm.tiempo}
+  
+  📱 Mi WhatsApp: ${form.whatsapp}
+  📧 Mi email: ${form.email}
+  
+  ¡Hablemos! 😊
     `;
 
     const encoded = encodeURIComponent(text);
@@ -111,7 +116,6 @@ Hola Mica, te dejo más información sobre mi proyecto:
       >
         Cotizar
       </button>
-
       {/* MODAL 1 */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
@@ -188,7 +192,6 @@ Hola Mica, te dejo más información sobre mi proyecto:
           </div>
         </div>
       )}
-
       {/* MODAL 2 (Preguntas avanzadas) */}
       {showSecondModal && (
         <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
@@ -201,25 +204,42 @@ Hola Mica, te dejo más información sobre mi proyecto:
             </button>
 
             <h3 className="text-2xl font-semibold mb-4 text-center text-black">
-              Últimos detalles ✨
+              Para que el equipo te contacte más rápido, respondé estas
+              preguntas :)
             </h3>
 
             <p className="text-center text-gray-600 mb-3">
-              Estas preguntas me ayudan a entender mejor tu proyecto.
+              Esto nos ayuda a orientarte mejor.
             </p>
 
             <form
               onSubmit={handleAdvancedSubmit}
               className="flex flex-col gap-3 text-black"
             >
-              <textarea
+              <select
                 name="objetivo"
-                placeholder="¿Cuál es el objetivo principal de tu sitio?"
                 value={advancedForm.objetivo}
                 onChange={handleAdvancedChange}
                 required
                 className="p-2 border rounded"
-              />
+              >
+                <option value="">Objetivo principal del sitio</option>
+                <option value="Vender productos físicos">
+                  Vender productos físicos
+                </option>
+                <option value="Vender servicios">Vender servicios</option>
+                <option value="Mostrar información del negocio">
+                  Mostrar información del negocio
+                </option>
+                <option value="Conseguir más clientes (leads)">
+                  Conseguir más clientes (leads)
+                </option>
+                <option value="Agendar turnos">Agendar turnos</option>
+                <option value="Mostrar catálogo sin carrito">
+                  Mostrar catálogo sin carrito
+                </option>
+                <option value="Otro">Otro</option>
+              </select>
 
               <select
                 name="presupuesto"
