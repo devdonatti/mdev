@@ -46,8 +46,10 @@ const SobreMi = () => {
           rounded-2xl px-6 py-4 shadow-md"
         >
           En MDev, nos enfocamos en la creación, desarrollo y mantenimiento de
-          páginas web. Trabajamos con el desarrollo a medida, basado en los
-          objetivos que persigue el cliente.
+          páginas web. Ademas nos enfocamos en ayudarte a escalar tu negocio
+          mediante sistemas de automatizacion de venta y pauta publicitaria,
+          para que tu negocio se mantenga siempre vivo y puedas brindarle la
+          mejor atencion a cada cliente interesada en tu producto o servicio
         </p>
       </div>
     </section>

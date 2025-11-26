@@ -43,7 +43,7 @@ const Banner = () => {
               MDev | Desarrollo web
             </h1>
             <h2 className="text-3xl font-raleway text-white">
-              Creamos el sitio web para tu negocio
+              Te ayudamos a escalar tu negocio
             </h2>
           </div>
 

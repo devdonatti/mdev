@@ -81,18 +81,18 @@ export default function CotizarModal() {
     e.preventDefault();
 
     const text = `
-Hola!, soy *${form.nombre}* 🙋‍♂️🙋‍♀️
+👋 Hola! Soy *${form.nombre}*
 
-Estoy interesado/a en una *${form.tipoProyecto}*.
+Estoy interesad@ en una *${form.tipoProyecto}*.
 
-📌 *Objetivo del sitio:* ${advancedForm.objetivo}
-💰 *Presupuesto estimado:* ${advancedForm.presupuesto}
-⏳ *Tiempo esperado:* ${advancedForm.tiempo}
+🎯 Objetivo del sitio: ${advancedForm.objetivo}
+💰 Presupuesto estimado: ${advancedForm.presupuesto}
+⏰ Tiempo esperado: ${advancedForm.tiempo}
 
 📱 Mi WhatsApp: ${form.whatsapp}
 📧 Mi email: ${form.email}
 
-¡Hablemos! 😊
+¡Hablemos! 
     `;
 
     const encoded = encodeURIComponent(text);
@@ -175,11 +175,14 @@ Estoy interesado/a en una *${form.tipoProyecto}*.
                 required
                 className="p-2 border rounded"
               >
-                <option value="">Tipo de proyecto</option>
+                <option value="" disabled>
+                  Servicio
+                </option>
                 <option value="Landing Page">Landing Page</option>
                 <option value="Página Web Completa">Página Web Completa</option>
                 <option value="Tienda Online">Tienda Online</option>
                 <option value="Automatizaciones">Automatizaciones</option>
+                <option value="Publicidad">Publicidad</option>
               </select>
 
               <button
@@ -212,7 +215,7 @@ Estoy interesado/a en una *${form.tipoProyecto}*.
 
             <h3 className="text-2xl font-semibold mb-4 text-center text-black">
               Para que el equipo te contacte más rápido, respondé estas
-              preguntas 🙂
+              preguntas :D
             </h3>
 
             <p className="text-center text-gray-600 mb-3">

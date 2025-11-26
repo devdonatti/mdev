@@ -50,6 +50,30 @@ const servicios = [
     ],
     precio: 600000,
   },
+  {
+    titulo: "Campañas en Meta Ads",
+    descripcion:
+      "Creación y gestión completa de campañas publicitarias en Facebook e Instagram para maximizar tus resultados.",
+    incluye: [
+      "Análisis personalizado de tu negocio y público objetivo",
+      "Diseño de campañas según tus objetivos comerciales",
+      "Segmentación avanzada para llegar a tu público ideal",
+      "Monitoreo y optimización continua de resultados",
+    ],
+    precio: 600000,
+  },
+  {
+    titulo: "Automatización",
+    descripcion:
+      "Implementación de sistemas automatizados para tu negocio, optimizando procesos, ventas y comunicación con clientes.",
+    incluye: [
+      "Automatización de correos electrónicos y respuestas automáticas",
+      "Formularios  de captación de leads",
+      "Filtros especializados a tu rubro",
+      "Creación de flujos de ventas ",
+    ],
+    precio: 600000,
+  },
 ];
 
 const Servicios = () => {
@@ -69,7 +93,7 @@ const Servicios = () => {
       </h1>
 
       {/* items-stretch asegura que las tarjetas ocupen el alto disponible */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 items-stretch">
+      <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
         {servicios.map((servicio, index) => {
           const precioOriginal = servicio.precio;
           const precioPromo = Math.round(precioOriginal / 2);

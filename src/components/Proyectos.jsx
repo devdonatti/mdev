@@ -50,13 +50,13 @@ const Proyectos = () => {
         Trabajos realizados
       </h1>
 
-      {/* CARRUSEL INFINITO */}
-      <div className="relative w-full overflow-hidden py-10">
-        <div className="flex items-center gap-10 animate-marquee whitespace-nowrap">
-          {[...proyectos, ...proyectos].map((proyecto, index) => (
+      {/* CARRUSEL DESLIZABLE EN MOBILE */}
+      <div className="relative w-full overflow-x-auto py-10">
+        <div className="flex gap-10 px-4 snap-x snap-mandatory">
+          {proyectos.map((proyecto, index) => (
             <div
               key={index}
-              className="flex flex-col items-center min-w-[240px] md:min-w-[300px]"
+              className="flex-shrink-0 flex flex-col items-center min-w-[240px] md:min-w-[300px] snap-start"
             >
               <h2 className="p-2 text-center leading-tight font-raleway text-white">
                 {proyecto.title}
