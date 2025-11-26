@@ -21,20 +21,24 @@ export default function CotizarModal() {
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
 
+  // --- Manejo del primer formulario
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  // --- Manejo del segundo formulario
   const handleAdvancedChange = (e) => {
     setAdvancedForm({ ...advancedForm, [e.target.name]: e.target.value });
   };
 
+  // --- Formatea WhatsApp a +549...
   const formatWhatsapp = (value) => {
     let clean = value.replace(/\D/g, "");
     if (clean && !clean.startsWith("549")) clean = "549" + clean;
     return "+" + clean;
   };
 
+  // --- Envío del primer formulario a Make
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -54,25 +58,16 @@ export default function CotizarModal() {
       });
 
       const data = await res.json();
-
       if (!res.ok) throw new Error(data.error || "Error al enviar");
 
       setSuccess("¡Gracias! Tu cotización fue enviada correctamente 🙌");
 
+      // Abrir el segundo modal después de 1.2s
       setTimeout(() => {
         setShowModal(false);
         setSuccess("");
-
-        // 👉 abrir el segundo formulario
         setShowSecondModal(true);
       }, 1200);
-
-      setForm({
-        nombre: "",
-        email: "",
-        whatsapp: "",
-        tipoProyecto: "",
-      });
     } catch (err) {
       console.error(err);
       setError("Hubo un error al enviar el formulario. Probá nuevamente.");
@@ -81,22 +76,23 @@ export default function CotizarModal() {
     setLoading(false);
   };
 
+  // --- Envío del segundo formulario a WhatsApp
   const handleAdvancedSubmit = (e) => {
     e.preventDefault();
 
     const text = `
-  Hola!, soy *${form.nombre}* 🙋‍♂️🙋‍♀️
-  
-  Estoy interesado/a en una *${form.tipoProyecto}*.
-  
-  📌 *Objetivo del sitio:* ${advancedForm.objetivo}
-  💰 *Presupuesto estimado:* ${advancedForm.presupuesto}
-  ⏳ *Tiempo esperado:* ${advancedForm.tiempo}
-  
-  📱 Mi WhatsApp: ${form.whatsapp}
-  📧 Mi email: ${form.email}
-  
-  ¡Hablemos! 😊
+Hola!, soy *${form.nombre}* 🙋‍♂️🙋‍♀️
+
+Estoy interesado/a en una *${form.tipoProyecto}*.
+
+📌 *Objetivo del sitio:* ${advancedForm.objetivo}
+💰 *Presupuesto estimado:* ${advancedForm.presupuesto}
+⏳ *Tiempo esperado:* ${advancedForm.tiempo}
+
+📱 Mi WhatsApp: ${form.whatsapp}
+📧 Mi email: ${form.email}
+
+¡Hablemos! 😊
     `;
 
     const encoded = encodeURIComponent(text);
@@ -104,7 +100,19 @@ export default function CotizarModal() {
 
     window.open(`https://wa.me/${phone}?text=${encoded}`, "_blank");
 
+    // Resetear ambos formularios después de enviar
     setShowSecondModal(false);
+    setForm({
+      nombre: "",
+      email: "",
+      whatsapp: "",
+      tipoProyecto: "",
+    });
+    setAdvancedForm({
+      objetivo: "",
+      presupuesto: "",
+      tiempo: "",
+    });
   };
 
   return (
@@ -116,7 +124,8 @@ export default function CotizarModal() {
       >
         Cotizar
       </button>
-      {/* MODAL 1 */}
+
+      {/* MODAL 1 - Cotización */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded-xl w-96 relative shadow-xl">
@@ -143,7 +152,6 @@ export default function CotizarModal() {
                 required
                 className="p-2 border rounded"
               />
-
               <input
                 name="email"
                 type="email"
@@ -153,7 +161,6 @@ export default function CotizarModal() {
                 required
                 className="p-2 border rounded"
               />
-
               <input
                 name="whatsapp"
                 placeholder="WhatsApp"
@@ -161,7 +168,6 @@ export default function CotizarModal() {
                 onChange={handleChange}
                 className="p-2 border rounded"
               />
-
               <select
                 name="tipoProyecto"
                 value={form.tipoProyecto}
@@ -192,7 +198,8 @@ export default function CotizarModal() {
           </div>
         </div>
       )}
-      {/* MODAL 2 (Preguntas avanzadas) */}
+
+      {/* MODAL 2 - Preguntas avanzadas */}
       {showSecondModal && (
         <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded-xl w-96 relative shadow-xl">
@@ -205,7 +212,7 @@ export default function CotizarModal() {
 
             <h3 className="text-2xl font-semibold mb-4 text-center text-black">
               Para que el equipo te contacte más rápido, respondé estas
-              preguntas :)
+              preguntas 🙂
             </h3>
 
             <p className="text-center text-gray-600 mb-3">
@@ -249,9 +256,11 @@ export default function CotizarModal() {
                 className="p-2 border rounded"
               >
                 <option value="">Presupuesto estimado</option>
-                <option value="Menos de $150.000">Menos de $150.000</option>
-                <option value="$150.000 a $300.000">$150.000 a $300.000</option>
-                <option value="Más de $300.000">Más de $300.000</option>
+                <option value="Menos de $200.000">Menos de $200.000</option>
+                <option value="$250.000 a $500.000">$250.000 a $500.000</option>
+                <option value="$500.000 - $1.000.000">
+                  $500.000 - $1.000.000
+                </option>
               </select>
 
               <select
