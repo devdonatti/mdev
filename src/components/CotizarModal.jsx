@@ -132,7 +132,9 @@ Estoy interesad@ en una *${form.tipoProyecto}*.
       <button
         className="bg-black hover:text-fuchsia-500 glow p-4 rounded lg:text-5xl text-white font-raleway"
         onClick={() => {
-          trackLead(); // TRACK DEL CLICK EN “COTIZAR”
+          if (typeof fbq === "function") {
+            fbq("track", "Contact"); // o Lead
+          }
           setShowModal(true);
         }}
       >
