@@ -63,7 +63,7 @@ const servicios = [
     precio: 600000,
   },
   {
-    titulo: "Automatización",
+    titulo: "Automatizaciones",
     descripcion:
       "Implementación de sistemas automatizados para tu negocio, optimizando procesos, ventas y comunicación con clientes.",
     incluye: [
@@ -84,74 +84,100 @@ const Servicios = () => {
   };
 
   return (
-    <div className="py-20 px-6 md:px-16 bg-opacity-60 text-white">
+    <div className="py-20 px-4 md:px-16 text-white">
       <h1
         data-aos="fade-right"
-        className="text-6xl font-raleway text-center mb-12 p-4 leading-normal text-white"
+        className="text-4xl md:text-6xl font-raleway text-center mb-16 leading-tight"
       >
         Servicios
       </h1>
 
-      {/* items-stretch asegura que las tarjetas ocupen el alto disponible */}
-      <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
-        {servicios.map((servicio, index) => {
-          const precioOriginal = servicio.precio;
-          const precioPromo = Math.round(precioOriginal / 2);
+      {/* GRID PREMIUM RESPONSIVO */}
+      <div
+        className="
+          grid 
+          gap-6 
+          justify-center
+          grid-cols-[repeat(auto-fit,minmax(160px,1fr))]
+          sm:grid-cols-[repeat(auto-fit,minmax(220px,1fr))]
+          md:grid-cols-2 
+          lg:grid-cols-3
+          max-w-6xl mx-auto
+        "
+      >
+        {servicios.map((servicio, index) => (
+          <div
+            key={index}
+            className="
+              bg-slate-900/70 backdrop-blur-xl 
+              rounded-3xl 
+              p-6 md:p-8 
+              border border-white/10 
+              shadow-xl 
+              hover:shadow-fuchsia-500/40 
+              transition 
+              duration-300 
+              hover:-translate-y-2
+              flex flex-col
+            "
+          >
+            {/* Contenido */}
+            <div className="flex-1 flex flex-col">
+              <h3 className="text-lg md:text-xl font-bold mb-3 text-fuchsia-400 tracking-wide">
+                {servicio.titulo}
+              </h3>
 
-          return (
-            <div
-              key={index}
-              className="bg-slate-900 rounded-2xl p-8 shadow-lg hover:shadow-fuchsia-500/50 transition duration-300 transform hover:-translate-y-2 h-full flex flex-col"
-            >
-              {/* Contenido flexible que crece */}
-              <div className="flex-1 flex flex-col">
-                <h3 className="text-2xl font-bold mb-3 text-fuchsia-400">
-                  {servicio.titulo}
-                </h3>
-                <p className="text-gray-300 mb-5">{servicio.descripcion}</p>
+              <p className="text-gray-300 mb-4 text-xs sm:text-sm md:text-base leading-relaxed">
+                {servicio.descripcion}
+              </p>
 
-                <ul className="list-disc pl-5 text-sm text-start text-gray-400 mb-5 space-y-1">
-                  {servicio.incluye.map((item, i) => (
-                    <li key={i}>{item}</li>
-                  ))}
-                </ul>
-
-                {/*
-                <div className="mb-5">
-                  <p className="text-gray-500 line-through text-lg">
-                    ${precioOriginal.toLocaleString("es-AR")}
-                  </p>
-                  <p className="text-2xl font-extrabold text-fuchsia-300 animate-pulse">
-                    ${precioPromo.toLocaleString("es-AR")}{" "}
-                    <span className="text-sm">(50% OFF)</span>
-                  </p>
-                </div>
-                */}
-              </div>
-
-              {/* Botonera fija al fondo */}
-              <div className="mt-auto flex flex-col gap-3">
-                <button
-                  onClick={() =>
-                    abrirWhatsapp(
-                      `Hola, estoy interesado/a en el servicio de ${servicio.titulo}. ¿Me podés contar más?`
-                    )
-                  }
-                  className="bg-fuchsia-600 hover:bg-fuchsia-500 text-white px-4 py-2 rounded-xl transition-all font-medium"
-                >
-                  Solicitar este servicio
-                </button>
-
-                <button
-                  onClick={() => abrirWhatsapp("reservar mi lugar")}
-                  className="border border-fuchsia-400 text-fuchsia-300 hover:bg-fuchsia-600 hover:text-white px-4 py-2 rounded-xl transition-all font-medium"
-                >
-                  Reservar lugar
-                </button>
-              </div>
+              <ul className="list-disc pl-4 text-xs sm:text-sm md:text-base text-gray-400 mb-6 space-y-1">
+                {servicio.incluye.map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
+              </ul>
             </div>
-          );
-        })}
+
+            {/* Botones */}
+            <div className="mt-auto flex flex-col gap-3">
+              <button
+                onClick={() =>
+                  abrirWhatsapp(
+                    `Hola MDev, estoy interesado/a en el servicio de ${servicio.titulo}. ¿Me podés contar más?`
+                  )
+                }
+                className="
+                  bg-gradient-to-r from-fuchsia-600 to-fuchsia-500 
+                  hover:brightness-110 
+                  text-white 
+                  px-4 py-2 
+                  rounded-xl 
+                  transition-all 
+                  font-semibold
+                  text-sm md:text-base
+                "
+              >
+                Solicitar este servicio
+              </button>
+
+              <button
+                onClick={() => abrirWhatsapp("reservar mi lugar")}
+                className="
+                  border border-fuchsia-400 
+                  text-fuchsia-300 
+                  hover:bg-fuchsia-600 hover:text-white 
+                  px-4 py-2 
+                  rounded-xl 
+                  transition-all 
+                  font-semibold 
+                  text-sm md:text-base
+                "
+              >
+                Reservar lugar
+              </button>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

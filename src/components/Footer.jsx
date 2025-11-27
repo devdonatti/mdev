@@ -16,10 +16,10 @@ const Footer = () => {
             Servicios
           </h2>
           <ul className="space-y-2 font-raleway">
-            <li>Desarrollo Web</li>
-            <li>Diseño Web</li>
-            <li>Creación de contenido</li>
+            <li>Desarrollo y diseño Web</li>
             <li>SEO</li>
+            <li>IA</li>
+            <li>Publicidad</li>
           </ul>
         </div>
 

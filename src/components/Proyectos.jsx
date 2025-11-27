@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import Comentarios from "./Comentarios";
 
@@ -6,7 +6,7 @@ const proyectos = [
   {
     title: "Tienda online Smile",
     imgSrc: "/vistasmile.png",
-    demoLink: "https://tiendasmile.vercel.app/",
+    demoLink: "https://smiletienda.com.ar/",
   },
   {
     title: "Tienda online VikingTech",
@@ -16,64 +16,112 @@ const proyectos = [
   {
     title: "Epex e Hijos",
     imgSrc: "/vista-epex.png",
-    demoLink: "https://epexehijos.netlify.app/",
+    demoLink: "https://epexehijos.com/",
   },
   {
     title: "Gestoría Cisneros",
     imgSrc: "/vistagestoria.png",
     demoLink: "https://gestoriacisneros.com",
   },
+  {
+    title: "Cerrajeria ",
+    imgSrc: "/vista-cerrajeria.png",
+    demoLink: "https://cerrajeria24hs.com",
+  },
 ];
 
 const plantillas = [
   {
-    nombre: "App Pedidos al Whatsapp",
+    nombre: "Pedidos al Whatsapp",
     imgSrc: "/vistapedidos.png",
     infoLink: "/info/pedidos-whatsapp",
     demoLink: "https://pedidoswp.netlify.app/",
     precio: "$200.000",
   },
   {
-    nombre: "App Tienda Online",
+    nombre: "E-commerce",
     imgSrc: "/vistasmile.png",
     infoLink: "/info/tienda-online",
-    demoLink: "https://tiendasmile.vercel.app/",
+    demoLink: "https://tiendasmile.com/",
     precio: "$550.000",
   },
 ];
 
 const Proyectos = () => {
+  const carouselRef = useRef(null);
+
+  // AUTOPLAY SOLO EN MOBILE
+  useEffect(() => {
+    const carousel = carouselRef.current;
+    if (!carousel) return;
+
+    let interval;
+
+    const startAutoplay = () => {
+      if (window.innerWidth > 768) return; // solo mobile
+      interval = setInterval(() => {
+        carousel.scrollBy({
+          left: 260,
+          behavior: "smooth",
+        });
+
+        // Regresar al inicio si llega al final
+        if (
+          carousel.scrollLeft + carousel.clientWidth >=
+          carousel.scrollWidth - 10
+        ) {
+          carousel.scrollTo({ left: 0, behavior: "smooth" });
+        }
+      }, 3000);
+    };
+
+    startAutoplay();
+
+    // Si el usuario toca → detener autoplay momentáneamente
+    const stopOnTouch = () => clearInterval(interval);
+    carousel.addEventListener("touchstart", stopOnTouch);
+
+    return () => {
+      clearInterval(interval);
+      carousel.removeEventListener("touchstart", stopOnTouch);
+    };
+  }, []);
+
   return (
     <div id="Proyectos" className="p-5 md:p-20 flex flex-col items-center">
       {/* Título */}
-      <h1 className="text-6xl font-raleway mb-8 p-4 leading-normal text-fuchsia-600 text-center">
+      <h1 className="text-5xl md:text-6xl font-raleway mb-8 p-4 font-bold text-fuchsia-600 text-center tracking-tight">
         Trabajos realizados
       </h1>
 
-      {/* CARRUSEL DESLIZABLE EN MOBILE */}
-      <div className="relative w-full overflow-x-auto py-10">
-        <div className="flex gap-10 px-4 snap-x snap-mandatory">
+      {/* CARRUSEL MOBILE AUTOPLAY */}
+      <div
+        className="relative w-full overflow-x-auto py-10 snap-x snap-mandatory scroll-smooth"
+        ref={carouselRef}
+      >
+        <div className="flex gap-10 px-4">
           {proyectos.map((proyecto, index) => (
             <div
               key={index}
               className="flex-shrink-0 flex flex-col items-center min-w-[240px] md:min-w-[300px] snap-start"
             >
-              <h2 className="p-2 text-center leading-tight font-raleway text-white">
+              <h2 className="p-2 text-center leading-snug font-raleway text-white text-lg font-semibold">
                 {proyecto.title}
               </h2>
 
               <img
                 data-aos="fade-down"
-                className="w-full h-auto max-w-xs md:max-w-sm border-2 border-fuchsia-800 b_glow"
+                className="w-full h-auto max-w-xs md:max-w-sm border-2 border-fuchsia-700 rounded-xl shadow-lg hover:shadow-fuchsia-500/40 transition-all duration-300"
                 src={proyecto.imgSrc}
                 alt={proyecto.title}
               />
 
-              <div className="flex gap-4 justify-center p-2 leading-tight font-raleway text-white">
+              <div className="flex gap-4 justify-center p-2 font-raleway text-white text-sm uppercase">
                 <a
                   target="_blank"
                   rel="noopener noreferrer"
                   href={proyecto.demoLink}
+                  className="hover:text-fuchsia-300 transition"
                 >
                   Ver página
                 </a>
@@ -89,40 +137,40 @@ const Proyectos = () => {
       {/* Título Plantillas */}
       <h1
         data-aos="fade-right"
-        className="text-5xl font-raleway text-center mb-8 p-4 leading-normal text-white"
+        className="text-4xl md:text-5xl font-raleway text-center mb-8 p-4 text-white font-bold tracking-tight"
       >
         Plantillas
       </h1>
 
-      {/* PLANTILLAS NORMAL */}
+      {/* PLANTILLAS */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 w-full justify-center">
         {plantillas.map((modelo, index) => (
           <div
             key={index}
-            className="bg-fuchsia-800 rounded-2xl p-6 shadow-lg hover:shadow-fuchsia-500/30 transition duration-300 flex flex-col items-center"
+            className="bg-fuchsia-800 rounded-2xl p-6 shadow-xl hover:shadow-fuchsia-500/40 transition duration-300 flex flex-col items-center"
           >
             <h2 className="text-xl font-semibold text-white mb-2 text-center uppercase font-raleway">
               {modelo.nombre}
             </h2>
 
             <img
-              className="w-full h-auto max-w-xs md:max-w-sm border-2 border-fuchsia-800 b_glow mb-4"
+              className="w-full h-auto max-w-xs md:max-w-sm border-2 border-fuchsia-900 rounded-xl shadow-md mb-4"
               src={modelo.imgSrc}
               alt={modelo.nombre}
             />
 
-            {/*
-            <p className="text-fuchsia-300 font-bold text-lg mb-2">
-              Precio: {modelo.precio}
-            </p>
-            */}
-
             <div className="flex gap-4 justify-center text-white mb-4 font-raleway uppercase">
-              <Link to={modelo.infoLink}>Info |</Link>
+              <Link
+                to={modelo.infoLink}
+                className="hover:text-fuchsia-300 transition"
+              >
+                Info |
+              </Link>
               <a
                 href={modelo.demoLink}
                 target="_blank"
                 rel="noopener noreferrer"
+                className="hover:text-fuchsia-300 transition"
               >
                 Ver página
               </a>
@@ -137,7 +185,7 @@ const Proyectos = () => {
                 )}`;
                 window.open(url, "_blank");
               }}
-              className="mt-2 bg-fuchsia-600 hover:bg-fuchsia-500 text-white px-4 py-2 rounded-xl transition-all"
+              className="mt-2 bg-fuchsia-600 hover:bg-fuchsia-500 text-white px-4 py-2 rounded-xl transition-all font-semibold"
             >
               Quiero esta Web App
             </button>
