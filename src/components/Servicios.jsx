@@ -55,22 +55,22 @@ const servicios = [
     descripcion:
       "Creación y gestión completa de campañas publicitarias en Facebook e Instagram para maximizar tus resultados.",
     incluye: [
-      "Análisis personalizado de tu negocio y público objetivo",
-      "Diseño de campañas según tus objetivos comerciales",
-      "Segmentación avanzada para llegar a tu público ideal",
-      "Monitoreo y optimización continua de resultados",
+      "Análisis de tu negocio y público objetivo",
+      "Diseño de campañas según objetivos comerciales",
+      "Segmentación avanzada",
+      "Monitoreo y optimización continua",
     ],
     precio: 600000,
   },
   {
     titulo: "Automatizaciones",
     descripcion:
-      "Implementación de sistemas automatizados para tu negocio, optimizando procesos, ventas y comunicación con clientes.",
+      "Sistemas automatizados para tu negocio, optimizando procesos, ventas y comunicación.",
     incluye: [
-      "Automatización de correos electrónicos y respuestas automáticas",
-      "Formularios  de captación de leads",
-      "Filtros especializados a tu rubro",
-      "Creación de flujos de ventas ",
+      "Automatización de emails",
+      "Formularios de captación de leads",
+      "Filtros por rubro",
+      "Flujos de ventas",
     ],
     precio: 600000,
   },
@@ -78,8 +78,8 @@ const servicios = [
 
 const Servicios = () => {
   const abrirWhatsapp = (mensaje) => {
-    const numero = "5491170618004"; // número de WhatsApp de tu marca (AR)
-    const url = `https://wa.me/54${numero}?text=${encodeURIComponent(mensaje)}`;
+    const numero = "5491170618004";
+    const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
     window.open(url, "_blank");
   };
 
@@ -92,54 +92,54 @@ const Servicios = () => {
         Servicios
       </h1>
 
-      {/* GRID PREMIUM RESPONSIVO */}
       <div
         className="
-    grid 
-    gap-6 
-    justify-center
-    grid-cols-1
-    sm:grid-cols-2
-    md:grid-cols-2
-    lg:grid-cols-3
-    max-w-6xl mx-auto
-  "
+      grid 
+      gap-4 
+      grid-cols-1 
+      sm:grid-cols-2 
+      lg:grid-cols-3 
+      max-w-6xl 
+      mx-auto
+    "
       >
         {servicios.map((servicio, index) => (
           <div
             key={index}
             className="
-              bg-slate-900/70 backdrop-blur-xl 
-              rounded-3xl 
-              p-6 md:p-8 
-              border border-white/10 
-              shadow-xl 
-              hover:shadow-fuchsia-500/40 
-              transition 
-              duration-300 
-              hover:-translate-y-2
-              flex flex-col
-            "
+            bg-slate-900/70 backdrop-blur-xl 
+            rounded-3xl 
+            p-4 sm:p-6 md:p-8 
+            border border-white/10 
+            shadow-xl 
+            hover:shadow-fuchsia-500/40 
+            transition 
+            duration-300 
+            hover:-translate-y-2
+            flex flex-col
+
+            /* 🔥 COMPACTO EN MOBILE */
+            max-h-[420px] sm:max-h-none 
+            overflow-hidden sm:overflow-visible
+          "
           >
-            {/* Contenido */}
             <div className="flex-1 flex flex-col">
-              <h3 className="text-lg md:text-xl font-bold mb-3 text-fuchsia-400 tracking-wide">
+              <h3 className="text-base sm:text-lg md:text-xl font-bold mb-2 text-fuchsia-400 tracking-wide">
                 {servicio.titulo}
               </h3>
 
-              <p className="text-gray-300 mb-4 text-xs sm:text-sm md:text-base leading-relaxed">
+              <p className="text-gray-300 mb-3 text-xs sm:text-sm md:text-base leading-relaxed line-clamp-3 sm:line-clamp-none">
                 {servicio.descripcion}
               </p>
 
-              <ul className="list-disc pl-4 text-xs sm:text-sm md:text-base text-gray-400 mb-6 space-y-1">
+              <ul className="list-disc pl-4 text-xs sm:text-sm md:text-base text-gray-400 mb-4 space-y-0.5 sm:space-y-1 line-clamp-4 sm:line-clamp-none">
                 {servicio.incluye.map((item, i) => (
                   <li key={i}>{item}</li>
                 ))}
               </ul>
             </div>
 
-            {/* Botones */}
-            <div className="mt-auto flex flex-col gap-3">
+            <div className="mt-auto flex flex-col gap-2 sm:gap-3">
               <button
                 onClick={() =>
                   abrirWhatsapp(
@@ -147,15 +147,15 @@ const Servicios = () => {
                   )
                 }
                 className="
-                  bg-gradient-to-r from-fuchsia-600 to-fuchsia-500 
-                  hover:brightness-110 
-                  text-white 
-                  px-4 py-2 
-                  rounded-xl 
-                  transition-all 
-                  font-semibold
-                  text-sm md:text-base
-                "
+                bg-gradient-to-r from-fuchsia-600 to-fuchsia-500 
+                hover:brightness-110 
+                text-white 
+                px-3 py-2 
+                rounded-xl 
+                transition-all 
+                font-semibold
+                text-xs sm:text-sm md:text-base
+              "
               >
                 Solicitar este servicio
               </button>
@@ -163,15 +163,15 @@ const Servicios = () => {
               <button
                 onClick={() => abrirWhatsapp("reservar mi lugar")}
                 className="
-                  border border-fuchsia-400 
-                  text-fuchsia-300 
-                  hover:bg-fuchsia-600 hover:text-white 
-                  px-4 py-2 
-                  rounded-xl 
-                  transition-all 
-                  font-semibold 
-                  text-sm md:text-base
-                "
+                border border-fuchsia-400 
+                text-fuchsia-300 
+                hover:bg-fuchsia-600 hover:text-white 
+                px-3 py-2 
+                rounded-xl 
+                transition-all 
+                font-semibold 
+                text-xs sm:text-sm md:text-base
+              "
               >
                 Reservar lugar
               </button>

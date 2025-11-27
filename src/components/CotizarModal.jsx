@@ -91,16 +91,16 @@ export default function CotizarModal() {
     e.preventDefault();
 
     const text = `
-👋 Hola! Soy *${form.nombre}*
+Hola! Soy ${form.nombre}
 
-Estoy interesad@ en una *${form.tipoProyecto}*.
+Estoy interesad@ en una ${form.tipoProyecto}.
 
-🎯 Objetivo del sitio: ${advancedForm.objetivo}
-💰 Presupuesto estimado: ${advancedForm.presupuesto}
-⏰ Tiempo esperado: ${advancedForm.tiempo}
+Objetivo del sitio: ${advancedForm.objetivo}
+Presupuesto estimado: ${advancedForm.presupuesto}
+Tiempo esperado: ${advancedForm.tiempo}
 
-📱 Mi WhatsApp: ${form.whatsapp}
-📧 Mi email: ${form.email}
+Mi WhatsApp: ${form.whatsapp}
+Mi email: ${form.email}
 
 ¡Hablemos! 
     `;
