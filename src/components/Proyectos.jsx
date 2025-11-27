@@ -51,21 +51,25 @@ const Proyectos = () => {
   const carouselRef = useRef(null);
 
   // AUTOPLAY SOLO EN MOBILE
+  // AUTOPLAY + TOUCH + DESKTOP SCROLL
   useEffect(() => {
     const carousel = carouselRef.current;
     if (!carousel) return;
 
     let interval;
+    let userInteracted = false;
+    let resetTimeout;
 
     const startAutoplay = () => {
-      if (window.innerWidth > 768) return; // solo mobile
       interval = setInterval(() => {
+        if (userInteracted) return;
+
         carousel.scrollBy({
           left: 260,
           behavior: "smooth",
         });
 
-        // Regresar al inicio si llega al final
+        // Cuando llega al final → vuelve al inicio
         if (
           carousel.scrollLeft + carousel.clientWidth >=
           carousel.scrollWidth - 10
@@ -77,13 +81,35 @@ const Proyectos = () => {
 
     startAutoplay();
 
-    // Si el usuario toca → detener autoplay momentáneamente
-    const stopOnTouch = () => clearInterval(interval);
-    carousel.addEventListener("touchstart", stopOnTouch);
+    const handleInteraction = () => {
+      userInteracted = true;
+      clearTimeout(resetTimeout);
+
+      resetTimeout = setTimeout(() => {
+        userInteracted = false;
+      }, 4000); // Se reactiva el autoplay si pasan 4s sin moverlo
+    };
+
+    // Mobile touch
+    carousel.addEventListener("touchstart", handleInteraction);
+    carousel.addEventListener("touchmove", handleInteraction);
+    carousel.addEventListener("touchend", handleInteraction);
+
+    // Desktop scroll con mouse
+    carousel.addEventListener("wheel", handleInteraction);
+    carousel.addEventListener("mousedown", handleInteraction);
+    carousel.addEventListener("mouseup", handleInteraction);
 
     return () => {
       clearInterval(interval);
-      carousel.removeEventListener("touchstart", stopOnTouch);
+
+      carousel.removeEventListener("touchstart", handleInteraction);
+      carousel.removeEventListener("touchmove", handleInteraction);
+      carousel.removeEventListener("touchend", handleInteraction);
+
+      carousel.removeEventListener("wheel", handleInteraction);
+      carousel.removeEventListener("mousedown", handleInteraction);
+      carousel.removeEventListener("mouseup", handleInteraction);
     };
   }, []);
 
@@ -187,7 +213,7 @@ const Proyectos = () => {
               }}
               className="mt-2 bg-fuchsia-600 hover:bg-fuchsia-500 text-white px-4 py-2 rounded-xl transition-all font-semibold"
             >
-              Quiero esta Web App
+              Quiero esta aplicación web
             </button>
           </div>
         ))}

@@ -95,15 +95,15 @@ const Servicios = () => {
       {/* GRID PREMIUM RESPONSIVO */}
       <div
         className="
-          grid 
-          gap-6 
-          justify-center
-          grid-cols-[repeat(auto-fit,minmax(160px,1fr))]
-          sm:grid-cols-[repeat(auto-fit,minmax(220px,1fr))]
-          md:grid-cols-2 
-          lg:grid-cols-3
-          max-w-6xl mx-auto
-        "
+    grid 
+    gap-6 
+    justify-center
+    grid-cols-1
+    sm:grid-cols-2
+    md:grid-cols-2
+    lg:grid-cols-3
+    max-w-6xl mx-auto
+  "
       >
         {servicios.map((servicio, index) => (
           <div

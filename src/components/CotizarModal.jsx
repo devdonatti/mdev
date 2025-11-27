@@ -21,6 +21,13 @@ export default function CotizarModal() {
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
 
+  // --------------- TRACKING META PIXEL ---------------
+  const trackLead = () => {
+    if (typeof fbq !== "undefined") {
+      fbq("track", "Lead");
+    }
+  };
+
   // --- Manejo del primer formulario
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -44,6 +51,9 @@ export default function CotizarModal() {
     setLoading(true);
     setSuccess("");
     setError("");
+
+    // TRACK EVENTO DE LEAD CUANDO ENVÍAN FORM 1
+    trackLead();
 
     const formattedPhone = form.whatsapp ? formatWhatsapp(form.whatsapp) : "";
 
@@ -100,8 +110,9 @@ Estoy interesad@ en una *${form.tipoProyecto}*.
 
     window.open(`https://wa.me/${phone}?text=${encoded}`, "_blank");
 
-    // Resetear ambos formularios después de enviar
     setShowSecondModal(false);
+
+    // Resetear formularios
     setForm({
       nombre: "",
       email: "",
@@ -120,7 +131,10 @@ Estoy interesad@ en una *${form.tipoProyecto}*.
       {/* BOTÓN */}
       <button
         className="bg-black hover:text-fuchsia-500 glow p-4 rounded lg:text-5xl text-white font-raleway"
-        onClick={() => setShowModal(true)}
+        onClick={() => {
+          trackLead(); // TRACK DEL CLICK EN “COTIZAR”
+          setShowModal(true);
+        }}
       >
         Cotizar
       </button>
