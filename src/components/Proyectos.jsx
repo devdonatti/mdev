@@ -45,6 +45,13 @@ const plantillas = [
     demoLink: "https://tiendasmile.com/",
     precio: "$550.000",
   },
+  {
+    nombre: "Página institucional",
+    imgSrc: "/plantilla.png",
+    infoLink: "/info/pagina-institucional",
+    demoLink: "https://plantillas-estudios.netlify.app/",
+    precio: "$550.000",
+  },
 ];
 
 const Proyectos = () => {
