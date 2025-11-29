@@ -66,33 +66,44 @@ const productos = {
   },
 
   "pagina-institucional": {
+    precioAntes: "280.000",
+    precio: "160.000",
+    incluye: "Incluye dominio .com por 1 año",
     nombre: "Página Institucional Profesional",
-    publico: "abogados · estudios jurídicos ",
+    publico: "abogados · estudios jurídicos · escribanías · consultoras",
     descripcion:
-      "Una web moderna y seria para transmitir confianza, mostrar trayectoria y organizar información importante.",
+      "Mostrá tu profesión con una imagen moderna, confiable y lista para captar clientes. Tu web institucional ordenada, clara y adaptada a tu identidad.",
     dolor: [
-      "Tu web actual se ve vieja o no tenés una.",
-      "Los clientes no encuentran la info que necesitan.",
-      "Perdés credibilidad por falta de presencia digital.",
+      "Tu web actual se ve vieja, desactualizada o directamente no tenés una.",
+      "Los clientes no encuentran la información importante: servicios, contacto, trayectoria.",
+      "Dudás profesionalmente porque tu presencia online no refleja la calidad de tu trabajo.",
+      "Perdés oportunidades por no tener una imagen seria y actualizada.",
     ],
     solucion:
-      "Una web institucional clara, moderna y adaptable con secciones profesionales.",
+      "Creamos una web institucional moderna, clara y profesional, pensada especialmente para estudios jurídicos y profesionales independientes. Incluye secciones completas, diseño serio, carga rápida y estructura optimizada.",
     beneficios: [
-      "Mayor confianza desde el primer vistazo.",
-      "Información ordenada y accesible.",
-      "Imagen moderna acorde a tu estudio.",
+      "Transmití confianza y profesionalismo desde el primer vistazo.",
+      "Mostrá tus áreas de práctica, trayectoria, valores y equipo.",
+      "Diseño moderno, rápido y adaptable a tu estudio.",
+      "Botones directos a WhatsApp para recibir consultas fácilmente.",
+      "Sin mensualidades: pago único y la web es tuya.",
     ],
     testimonios: [
       {
+        nombre: "Colegio de Traductores Públicos · Salta",
+        comentario:
+          "La web quedó súper profesional y muy completa. La gente encuentra todo mucho más rápido.",
+      },
+      {
         nombre: "Estudio Jurídico Salta",
         comentario:
-          "La web quedó clara y moderna. Los clientes encuentran todo rápido.",
+          "Ordenamos toda la información del estudio y la web transmite mucha más confianza.",
       },
     ],
+
     demoLink: "https://plantillas-estudios.netlify.app/",
     imgSrc: "/plantilla.png",
-    whatsappMsg:
-      "Hola, quiero una web institucional profesional para mi estudio.",
+    whatsappMsg: "Hola, quiero la Página Institucional Profesional.",
   },
 };
 
@@ -270,6 +281,141 @@ const InfoProducto = () => {
           </motion.div>
         ))}
       </Card>
+      {/* SECCIONES EXCLUSIVAS PARA PAGINA INSTITUCIONAL */}
+      {producto.nombre === "Página Institucional Profesional" && (
+        <>
+          {/* QUÉ INCLUYE */}
+          <Card>
+            <h2 className="text-2xl font-semibold text-fuchsia-400 mb-6 text-center">
+              ¿Qué incluye tu Página Institucional?
+            </h2>
+
+            <motion.ul
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              variants={{
+                hidden: { opacity: 0 },
+                show: {
+                  opacity: 1,
+                  transition: { staggerChildren: 0.15 },
+                },
+              }}
+              className="space-y-4 max-w-2xl mx-auto"
+            >
+              {[
+                "Diseño moderno y profesional pensado para estudios jurídicos.",
+                "Secciones: Quiénes somos, Áreas de práctica, Servicios, Contacto y más.",
+                "Integración con WhatsApp para consultas directas.",
+                "Formulario de contacto optimizado.",
+                "Adaptada a escritorio y celular.",
+                "Carga rápida y optimizada para captar clientes.",
+                "Pago único. Sin mensualidades ni costos ocultos.",
+              ].map((item, i) => (
+                <motion.li
+                  key={i}
+                  variants={{
+                    hidden: { opacity: 0, x: -40 },
+                    show: { opacity: 1, x: 0 },
+                  }}
+                  className="flex items-start gap-3"
+                >
+                  <FaCheckCircle className="text-fuchsia-400 mt-1 text-lg" />
+                  <span className="text-gray-300">{item}</span>
+                </motion.li>
+              ))}
+            </motion.ul>
+          </Card>
+
+          {/* CÓMO TRABAJAMOS */}
+          <Card>
+            <h2 className="text-2xl font-semibold text-fuchsia-400 mb-6 text-center">
+              ¿Cómo trabajamos?
+            </h2>
+
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+              {[
+                {
+                  titulo: "1. Enviás la información",
+                  desc: "Completás tus datos, áreas de práctica, trayectoria y contenido para cargar en la web.",
+                },
+                {
+                  titulo: "2. Abonás la seña",
+                  desc: "Pagás el 25% para comenzar el trabajo. El 75% restante al finalizar.",
+                },
+                {
+                  titulo: "3. Configuramos tu web",
+                  desc: "Con la seña acreditada, cargamos tus datos y compramos tu dominio por 1 año.",
+                },
+                {
+                  titulo: "4. Publicamos tu página",
+                  desc: "La web queda activa, profesional y lista para que tus clientes te encuentren.",
+                },
+                {
+                  titulo: "5. Si pagás la seña desde la web",
+                  desc: "Enviás el comprobante por WhatsApp y te mandamos el formulario para cargar tu información.",
+                },
+              ].map((step, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                  viewport={{ once: true }}
+                  className="bg-slate-800 p-5 rounded-xl border border-slate-700 shadow-md text-center"
+                >
+                  <h3 className="text-xl font-semibold text-fuchsia-300 mb-2">
+                    {step.titulo}
+                  </h3>
+                  <p className="text-gray-300 text-sm">{step.desc}</p>
+                </motion.div>
+              ))}
+            </div>
+          </Card>
+
+          {/* PREGUNTAS FRECUENTES */}
+          <Card>
+            <h2 className="text-2xl font-semibold text-fuchsia-400 mb-6 text-center">
+              Preguntas frecuentes
+            </h2>
+
+            <div className="space-y-4 max-w-3xl mx-auto">
+              {[
+                {
+                  p: "¿Cuánto tarda en estar lista?",
+                  r: "Despues de recibida la informacion, en 24 hs te la entregamos lista para funcionar.",
+                },
+                {
+                  p: "¿Tengo que pagar algo por mes?",
+                  r: "No. Es un pago único. La web es tuya.",
+                },
+                {
+                  p: "¿Puedo pedir cambios?",
+                  r: "Sí, ajustamos tu información y secciones según tus necesidades, a cotizar.",
+                },
+                {
+                  p: "¿Puedo agregar más servicios o secciones?",
+                  r: "Sí, se puede ampliar o personalizar según tu estudio.",
+                },
+              ].map((faq, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                  viewport={{ once: true }}
+                  className="bg-slate-800 p-4 rounded-xl border border-slate-700"
+                >
+                  <h3 className="text-lg font-semibold text-fuchsia-300">
+                    {faq.p}
+                  </h3>
+                  <p className="text-gray-300 mt-1">{faq.r}</p>
+                </motion.div>
+              ))}
+            </div>
+          </Card>
+        </>
+      )}
 
       {/* CTA CON ANIMACIÓN */}
       <motion.div
@@ -284,7 +430,7 @@ const InfoProducto = () => {
           whileTap={{ scale: 0.95 }}
           className="bg-fuchsia-600 hover:bg-fuchsia-500 text-white px-8 py-3 rounded-xl font-semibold transition-all"
         >
-          Ver demo en vivo
+          Ver en vivo
         </motion.a>
 
         <motion.button
@@ -300,6 +446,55 @@ const InfoProducto = () => {
           <FaWhatsapp className="text-xl" /> Quiero esta App
         </motion.button>
       </motion.div>
+      {/* BLOQUE DE PRECIOS */}
+      {/* CTA CON PRECIO (solo si el producto tiene precio) */}
+      {producto.precio && (
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6 }}
+          className="bg-slate-800 border border-slate-700 rounded-2xl p-8 text-center max-w-xl mx-auto space-y-4 shadow-xl"
+        >
+          {/* Precios */}
+          <div className="space-y-1">
+            {producto.precioAntes && (
+              <p className="text-gray-400 line-through text-sm">
+                Antes: $ {producto.precioAntes}
+              </p>
+            )}
+
+            <p className="text-4xl font-bold text-fuchsia-400">
+              $ {producto.precio}
+            </p>
+
+            <p className="text-xs text-gray-400 uppercase tracking-widest">
+              Pago único · Sin mensualidades
+            </p>
+          </div>
+
+          {/* Botón Comprar */}
+          <motion.a
+            href="https://mpago.la/2KMpciw"
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="w-full block bg-fuchsia-600 hover:bg-fuchsia-500 text-white py-3 rounded-xl font-semibold shadow-lg"
+          >
+            Comprar ahora
+          </motion.a>
+
+          {/* Botón WhatsApp */}
+          <motion.button
+            onClick={handleWhatsapp}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="w-full flex items-center justify-center gap-2 bg-green-600 hover:bg-green-500 text-white py-3 rounded-xl font-semibold"
+          >
+            <FaWhatsapp /> Consultar por WhatsApp
+          </motion.button>
+        </motion.div>
+      )}
     </div>
   );
 };
