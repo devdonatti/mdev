@@ -90,12 +90,12 @@ const productos = {
     ],
     testimonios: [
       {
-        nombre: "Colegio de Traductores Públicos · Salta",
+        nombre: "Epex e hijos",
         comentario:
           "La web quedó súper profesional y muy completa. La gente encuentra todo mucho más rápido.",
       },
       {
-        nombre: "Estudio Jurídico Salta",
+        nombre: "Gestoria Cisneros",
         comentario:
           "Ordenamos toda la información del estudio y la web transmite mucha más confianza.",
       },
@@ -337,7 +337,7 @@ const InfoProducto = () => {
               {[
                 {
                   titulo: "1. Enviás la información",
-                  desc: "Completás tus datos, áreas de práctica, trayectoria y contenido para cargar en la web.",
+                  desc: "Escribinos via WhatsApp y pedinos tu formulario para completar con tus datos e informacion ",
                 },
                 {
                   titulo: "2. Abonás la seña",
@@ -350,10 +350,6 @@ const InfoProducto = () => {
                 {
                   titulo: "4. Publicamos tu página",
                   desc: "La web queda activa, profesional y lista para que tus clientes te encuentren.",
-                },
-                {
-                  titulo: "5. Si pagás la seña desde la web",
-                  desc: "Enviás el comprobante por WhatsApp y te mandamos el formulario para cargar tu información.",
                 },
               ].map((step, i) => (
                 <motion.div
