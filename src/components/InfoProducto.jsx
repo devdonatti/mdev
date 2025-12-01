@@ -337,7 +337,7 @@ const InfoProducto = () => {
               {[
                 {
                   titulo: "1. Enviás la información",
-                  desc: "Escribinos via WhatsApp y pedinos tu formulario para completar con tus datos e informacion ",
+                  desc: "Completas el formulario para enviarnos la información de la web y tus datos ",
                 },
                 {
                   titulo: "2. Abonás la seña",
@@ -439,7 +439,7 @@ const InfoProducto = () => {
           whileTap={{ scale: 0.95 }}
           className="flex items-center gap-2 bg-green-600 hover:bg-green-500 text-white px-7 py-3 rounded-xl font-semibold transition-all"
         >
-          <FaWhatsapp className="text-xl" /> Quiero esta App
+          <FaWhatsapp className="text-xl" /> Quiero esta web
         </motion.button>
       </motion.div>
       {/* BLOQUE DE PRECIOS */}
@@ -489,6 +489,17 @@ const InfoProducto = () => {
           >
             <FaWhatsapp /> Consultar por WhatsApp
           </motion.button>
+          <div>
+            <motion.a
+              href="https://forms.gle/bR8x8DfBFYrhHbdS8"
+              target="_blank"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="bg-blue-600 hover:bg-blue-500 text-white px-8 py-3 rounded-xl font-semibold transition-all shadow-lg"
+            >
+              Completar formulario
+            </motion.a>
+          </div>
         </motion.div>
       )}
     </div>
